@@ -1,0 +1,35 @@
+.ttsaudio-dark-amber .plyr--audio .plyr__controls {
+  background-color: #1c1c1c;
+  border: none;
+}
+
+.ttsaudio-dark-amber .plyr--audio .plyr__progress--buffer{
+  color: #525252;
+}
+
+.ttsaudio-dark-amber .plyr--audio .plyr__progress--buffer,
+.ttsaudio-dark-amber  .plyr--audio .plyr__volume--display{
+  background-color: #080808;
+}
+.ttsaudio-dark-amber .plyr--audio .plyr__progress--played,
+.ttsaudio-dark-amber .plyr--audio .plyr__volume--display {
+  color: #f0a30a;
+}
+
+.ttsaudio-dark-amber .plyr--audio input[type=range]:active::-webkit-slider-thumb{	background:#f0a30a;}
+.ttsaudio-dark-amber .plyr--audio input[type=range]:active::-moz-range-thumb{	background:#f0a30a;}
+.ttsaudio-dark-amber .plyr--audio input[type=range]:active::-ms-thumb{	background:#f0a30a;}
+
+.ttsaudio-dark-amber .plyr--audio .plyr__time--current { color: #f0a30a}
+
+.ttsaudio-dark-amber .plyr--audio button {color: #fff; background: none;}
+
+.ttsaudio-dark-amber .plyr--audio button:hover {color: #f0a30a; background: none;}
+
+
+/* playlist */
+.widget-playlist.ttsaudio-dark-amber ul.playlist{ background-color: #222; border: none; color: #ccc}
+.widget-playlist.ttsaudio-dark-amber ul.playlist li { border-color: #454545}
+
+.widget-playlist.ttsaudio-dark-amber ul.playlist li:hover,
+.widget-playlist.ttsaudio-dark-amber ul.playlist li.active { color: #f0a30a;}

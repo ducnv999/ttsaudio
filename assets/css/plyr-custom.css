@@ -1,0 +1,40 @@
+.ttsaudio-player audio { display: none}
+
+/* Playlist */
+.widget-playlist ul.playlist {
+  list-style: none;
+  margin: 0!important;
+  padding: 0 20px!important;
+  font-size: 14px;
+  line-height: .95;
+  color: #565D64;
+  border: 1px solid #dbe3e8;
+  border-top: none;
+}
+.widget-playlist ul.playlist li {
+  margin: 0!important;
+  padding: 10px 0px!important;
+  list-style: none;
+  cursor: pointer;
+  line-height: 1.6;
+  border-bottom:1px dotted #dbe3e8
+}
+.widget-playlist ul.playlist li:last-child {border-bottom: none}
+
+.widget-playlist ul.playlist li .post-date{ color: rgba(255,255,255,0.3); font-style: oblique; font-size: 90%}
+.widget-playlist.ttsaudio-default ul.playlist li .post-date{ color: rgba(0,0,0,0.3);}
+
+.widget-playlist ul.playlist li:before { content: ''}
+
+.widget-playlist ul.playlist li:hover,
+.widget-playlist ul.playlist li.active {
+  color: #3498db;
+}
+
+.widget-playlist .buttons { display:  none}
+
+
+.plyr[max-width~="360px"] .plyr__volume {
+  display: none
+}
+

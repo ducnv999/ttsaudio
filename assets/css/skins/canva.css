@@ -1,0 +1,52 @@
+.ttsaudio-canva,
+.ttsaudio-canva .plyr--audio .plyr__controls {
+  /* IE10+ */
+  background-image: -ms-linear-gradient(left, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(left, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(left, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #00C4CC), color-stop(30, #2599B9), color-stop(100, #684C96));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(left, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+
+  /* W3C Markup */
+  background-image: linear-gradient(to right, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+  border: none;
+}
+
+.ttsaudio-canva .plyr--audio .plyr__progress--buffer{
+  color: rgba(255,255,255,0.7);
+}
+
+.ttsaudio-canva .plyr--audio .plyr__progress--buffer,
+.ttsaudio-canva  .plyr--audio .plyr__volume--display{
+  background-color: rgba(0,0,0,0.2);
+}
+.ttsaudio-canva .plyr--audio .plyr__progress--played,
+.ttsaudio-canva .plyr--audio .plyr__volume--display {
+  color: #fff;
+}
+
+.ttsaudio-canva .plyr--audio input[type=range]:active::-webkit-slider-thumb{	background:#2599B9;}
+.ttsaudio-canva .plyr--audio input[type=range]:active::-moz-range-thumb{	background:#2599B9;}
+.ttsaudio-canva .plyr--audio input[type=range]:active::-ms-thumb{	background:#2599B9;}
+
+.ttsaudio-canva .plyr--audio .plyr__time--current { color: #fff}
+
+.ttsaudio-canva .plyr--audio button {color: #fff; background: none;}
+
+.ttsaudio-canva .plyr--audio button:hover {color: rgba(255,255,255,0.7); background: none;}
+
+
+/* playlist */
+.widget-playlist.ttsaudio-canva ul.playlist{ background-color: rgba(255,255,255,0.1); border: none; color: #ccc}
+.widget-playlist.ttsaudio-canva ul.playlist li { border-color: rgba(255,255,255,0.5); color: rgba(255,255,255,0.7)}
+
+.widget-playlist.ttsaudio-canva ul.playlist li:hover,
+.widget-playlist.ttsaudio-canva ul.playlist li.active { color: #fff;}
