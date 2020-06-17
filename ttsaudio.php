@@ -1,12 +1,11 @@
 <?php
 /*
 Plugin Name: TTS Audio
-Plugin URI: http://ttsmovie.com/plugin/ttsaudio
+Plugin URI: http://songduc.com/plugin/ttsaudio
 Description: This plugin help you convert your text to speech.
-Author: TTS Movie
+Author: Nguyen Van Duc (0936-770-119)
+Author URI: https://fb.com/ducwp
 Version: 1.0
-Author: TTS Movie
-Author URI: http://ttsmovie.com/
 Text Domain: ttsaudio
 Domain Path: /languages
 */
