@@ -9,7 +9,7 @@ class TTSAudio{
   function __construct(){
     $this->prefix = self::$prefix;
     $this->options = get_option( ttsaudio_option_name );
-    $this->voices = array('de-DE_BirgitVoice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterVoice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateVoice'=>'Kate: British English female voice.','en-US_AllisonVoice'=>'Allison: American English female voice.','en-US_LisaVoice'=>'Lisa: American English female voice.','en-US_MichaelVoice'=>'Michael: American English male voice.','es-ES_EnriqueVoice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraVoice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaVoice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaVoice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeVoice'=>'Renee: French (français) female voice.','it-IT_FrancescaVoice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiVoice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaVoice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.','female'=>'Thu Dung: Vietnamese (female - northern)','male'=>'Cao Chung: Vietnamese (male - northern)','ngoclam'=>'Ngoc Lam: Vietnamese (female - central)','hatieumai'=>'Ha Tieu Mai: Vietnamese (female - southern)');
+    $this->voices = array('de-DE_BirgitV3Voice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterV3Voice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateV3Voice'=>'Kate: British English female voice.','en-US_AllisonV3Voice'=>'Allison: American English female voice.','en-US_LisaV3Voice'=>'Lisa: American English female voice.','en-US_MichaelV3Voice'=>'Michael: American English male voice.','es-ES_EnriqueV3Voice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraV3Voice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaV3Voice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaV3Voice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeV3Voice'=>'Renee: French (français) female voice.','it-IT_FrancescaV3Voice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiV3Voice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaV3Voice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.','female'=>'Thu Dung: Vietnamese (female - northern)','male'=>'Cao Chung: Vietnamese (male - northern)','ngoclam'=>'Ngoc Lam: Vietnamese (female - central)','hatieumai'=>'Ha Tieu Mai: Vietnamese (female - southern)');
   }
 
   public function PlyrSkin( $folder ){
@@ -58,7 +58,7 @@ class TTSAudio{
   private function ttsWatson ($text, $voice = 'en-US_AllisonVoice'){
     if($text === '') return;
     $text = urlencode($text);
-    $url = 'https://text-to-speech-demo.ng.bluemix.net/api/synthesize?accept=audio/mp3';
+    $url = 'https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?accept=audio/mp3';
     $url.= '&text='.$text.'&voice='.$voice;
 
     return $url;
