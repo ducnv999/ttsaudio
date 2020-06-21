@@ -114,7 +114,8 @@ class TTSAudio_Playlist extends WP_Widget {
 					$title      = ( ! empty( $post_title ) ) ? $post_title : __( '(no title)' );
 					$settings  = get_post_meta( $recent_post->ID, '_ttsaudio_settings', true );
 					if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
-					else $mp3_url = add_query_arg( array('audio' => $recent_post->ID) , get_page_link($options['page_id']) );
+					else $mp3_url = add_query_arg( array('ttsaudio' => $recent_post->ID) , home_url() );
+
 					?>
 					<li data-id="<?php echo $i;?>" data-audio="<?php echo $mp3_url;?>">
 						<?php echo '<b>'.str_pad($i+1, 2, "0", STR_PAD_LEFT) .'</b>. '. $title ; ?>
@@ -256,4 +257,3 @@ class TTSAudio_Playlist extends WP_Widget {
 	}
 
 }
-

@@ -3,7 +3,7 @@
 //Add default meta box
 add_action('add_meta_boxes', 'add_custom_meta_box_post');
 function add_custom_meta_box_post($post) {
-  add_meta_box('sections_meta_box', 'TTS Audio Options', 'show_custom_meta_box', 'post' );
+  add_meta_box('sections_meta_box', 'TTS Audio Options', 'show_custom_meta_box');
 }
 
 add_action( 'save_post', 'ttsaudio_save' );
@@ -20,7 +20,8 @@ function ttsaudio_save( $post_id ){
   update_post_meta( $post_id, $prefix . 'settings' , $tts_settings );
 
   if($status=='delete') {
-    //unlink(ttsaudio_mp3_dir.$tts_settings['mp3']);
+    $tts = new TTSAudio;
+    unlink($tts->mp3_dir.'/'.$tts_settings['mp3']);
     delete_post_meta($post_id, $prefix . 'settings');
   }
 
@@ -106,7 +107,7 @@ function ttsMakeMP3() {
   $custom_audio = filter_input(INPUT_POST, "custom_audio", FILTER_SANITIZE_STRING);
 
   $meta_settings = get_post_meta( $post_id, $tts->prefix . 'meta_settings', true );
-  unlink(ttsaudio_mp3_dir.$meta_settings['mp3']);
+  unlink($tts->mp3_dir.'/'.$meta_settings['mp3']);
 
   $filename = $tts->ttsDownloadMP3($text, $voice);
   update_post_meta( $post_id, $tts->prefix.'status', 'enable');

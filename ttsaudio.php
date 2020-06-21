@@ -3,7 +3,7 @@
 Plugin Name: TTS Audio
 Plugin URI: http://songduc.com/ttsaudio
 Description: This plugin help you convert your text to speech.
-Author: Nguyen Van Duc (0936-770-119)
+Author: Duc Nguyen (0936 770 119)
 Author URI: https://fb.com/ducwp
 Version: 1.0
 Text Domain: ttsaudio
@@ -29,7 +29,7 @@ function ttsaudio_load_textdomain() {
 add_action( 'wp_enqueue_scripts', 'ttsaudio_plugin_scripts' );
 function ttsaudio_plugin_scripts(){
 	$options = get_option( ttsaudio_option_name );
-	wp_enqueue_style( 'ttsaudio-plyr',  '//cdn.plyr.io/2.0.18/plyr.css' );
+	wp_enqueue_style( 'ttsaudio-plyr',  'https://cdn.plyr.io/2.0.18/plyr.css' );
 	wp_enqueue_style( 'ttsaudio-plyr-playlist',  ttsaudio_plugin_url . 'assets/css/plyr-custom.css' );
 	wp_enqueue_style( 'ttsaudio-plyr-skin-'.$options['plyr_skin'],  ttsaudio_plugin_url . 'assets/css/skins/'.$options['plyr_skin'].'.css' );
 	$instance = get_option( 'widget_ttsaudio-playlist' );
@@ -46,14 +46,22 @@ function ttsaudio_plugin_scripts(){
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
     'ajax_nonce' => wp_create_nonce( 'any_value_here' ))
   );
-	wp_enqueue_script( 'ttsaudio-plyr', '//cdn.plyr.io/2.0.18/plyr.js', false, false, true);
-	wp_enqueue_script( 'ttsaudio-playlist', ttsaudio_plugin_url . 'assets/js/plyr-playlist.js', false, false, true);
-	wp_enqueue_script( 'ttsaudio-html5media', '//api.html5media.info/1.2.2/html5media.min.js', false, false, true);
-	wp_enqueue_script( 'ttsaudio-rangetouch', '//cdn.rangetouch.com/1.0.1/rangetouch.js', false, false, true);
-	wp_enqueue_script( 'ttsaudio-ResizeSensor', ttsaudio_plugin_url . 'assets/js/ResizeSensor.js', false, false, true);
-	wp_enqueue_script( 'ttsaudio-ElementQueries', ttsaudio_plugin_url . 'assets/js/ElementQueries.js', false, false, true);
+  wp_enqueue_script( 'jquery');
+	wp_enqueue_script( 'ttsaudio-plyr', 'https://cdn.plyr.io/2.0.18/plyr.js', 'jquery', false, true);
+	wp_enqueue_script( 'ttsaudio-playlist', ttsaudio_plugin_url . 'assets/js/plyr-playlist.js', ['jquery'], false, true);
+	wp_enqueue_script( 'ttsaudio-html5media', '//api.html5media.info/1.2.2/html5media.min.js', ['jquery'], false, true);
+	wp_enqueue_script( 'ttsaudio-rangetouch', 'https://cdn.rangetouch.com/1.0.1/rangetouch.js', ['jquery'], false, true);
+	wp_enqueue_script( 'ttsaudio-ResizeSensor', ttsaudio_plugin_url . 'assets/js/ResizeSensor.js', ['jquery'], false, true);
+	wp_enqueue_script( 'ttsaudio-ElementQueries', ttsaudio_plugin_url . 'assets/js/ElementQueries.js', ['jquery'], false, true);
 
 }
 
 add_filter( 'the_content', array($tts, 'ttsAudioContent') );
+
+add_filter( 'query_vars', function( $query_vars ){
+    $query_vars[] = 'ttsaudio';
+    return $query_vars;
+} );
+
+add_action( 'template_include', array($tts, 'template_include') );
 add_action( 'wp_footer', array($tts, 'footer_script'), 100 );
