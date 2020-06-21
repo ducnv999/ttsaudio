@@ -115,9 +115,7 @@ class TTSAudio{
     $response = curl_exec($curl);
     $json = json_decode( $response );
 
-    $mp3_url = ttsCheckUrl($json->async);
-
-    return $mp3_url;
+    return ttsCheckUrl($json->async);
   }
 
   public function ttsMP3Output( $post_id ){
