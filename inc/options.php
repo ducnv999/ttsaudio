@@ -83,7 +83,7 @@ function theme_options_do_page() {
 				<tr valign="top"><th scope="row"><?php _e( 'FPT API Key', 'ttsaudio' ); ?></th>
 					<td>
 						<input class="regular-text" type="text" name="fpt_api_key" value="<?php esc_attr_e( $options['fpt_api_key'] ); ?>" />
-						<p class="description"><?php _e('If you don\'t use Vietnamese, leave it blank.');?> <a href="https://console.fpt.ai/" target="_blank"><small>Get FPT API KEY</small></a></p>
+						<p class="description"><?php _e('If you don\'t use Vietnamese, leave it blank.');?> <a href="https://console.fpt.ai/" target="_blank"><small>Get FPT API KEY</small></a> (max 5000 characters)</p>
 					</td>
 				</tr>
 
