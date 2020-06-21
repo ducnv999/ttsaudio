@@ -113,13 +113,11 @@ class TTSAudio{
     ));
 
     $response = curl_exec($curl);
-
-    $seconds = ceil(strlen($text)/50);
-    sleep($seconds);
-
     $json = json_decode( $response );
 
-    return $json->async;
+    $mp3_url = ttsCheckUrl($json->async);
+
+    return $mp3_url;
   }
 
   public function ttsMP3Output( $post_id ){
@@ -130,7 +128,9 @@ class TTSAudio{
     if(file_exists($filepath)) $this->smartReadFile($filepath, $settings['mp3']);
     else echo 'File Does Not Exist!';
     exit;
+    return $mp3_url;
   }
+
 
   private function smartReadFile($location, $filename, $mimeType = 'audio/mpeg') {
     if (!file_exists($location)) exit;
@@ -214,4 +214,13 @@ class TTSAudio{
     <?php
   }
 
+}
+
+function ttsCheckUrl( $url ) {
+  $file_headers = @get_headers($url);
+  if($file_headers[0] == 'HTTP/1.1 404 Not Found' || $file_headers[0] == 'HTTP/1.0 404 Not Found') {
+    usleep(10000);
+    return ttsCheckUrl($url);
+  }
+  else return $url;
 }
