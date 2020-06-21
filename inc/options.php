@@ -40,10 +40,6 @@ function theme_options_add_page() {
 function theme_options_do_page() {
 	$options = get_option( ttsaudio_option_name );
 	$tts = new TTSAudio;
-
-	$upload_dir   = wp_upload_dir();
-
-	print_r($upload_dir);
 ?>
 	<div class="wrap">
 		<?php echo "<h2>" . __( 'TTS Audio Options', 'ttsaudio' ) . "</h2>"; ?>
@@ -52,14 +48,6 @@ function theme_options_do_page() {
 		<form action="/" name="ttsaudio_form" id="ttsaudio_form">
 
 			<table class="form-table">
-				<tr valign="top"><th scope="row"><?php _e( 'Audio URL Page', 'ttsaudio' ); ?></th>
-					<td>
-						<?php
-						$args = array('depth'=> 0,'child_of'=> 0,'selected'=> $options['page_id'],'echo'=> 1,'name'=> 'page_id');
-						wp_dropdown_pages($args); ?>
-						<p class="description"><?php _e( 'This page will be used for url of audio player.', 'ttsaudio' ); ?></p>
-					</td>
-				</tr>
 
 				<tr valign="top"><th scope="row"><?php _e( 'Player Skin', 'ttsaudio' ); ?></th>
 					<td>
@@ -95,14 +83,7 @@ function theme_options_do_page() {
 				<tr valign="top"><th scope="row"><?php _e( 'FPT API Key', 'ttsaudio' ); ?></th>
 					<td>
 						<input class="regular-text" type="text" name="fpt_api_key" value="<?php esc_attr_e( $options['fpt_api_key'] ); ?>" />
-						<p class="description"><?php _e('If you don\'t use Vietnamese, leave it blank.');?> <a href="https://dev.openfpt.vn" target="_blank"><small>Get FPT API KEY</small></a></p>
-					</td>
-				</tr>
-
-				<tr valign="top"><th scope="row"><?php _e( 'MP3 Directory', 'ttsaudio' ); ?></th>
-					<td>
-						<input class="large-text" type="text" name="mp3_dir" value="<?php echo esc_textarea(stripslashes( $options['mp3_dir'] )); ?>" />
-						<p class="description"><?php _e('This will contain mp3 files after TTSAudio create them.');?></p>
+						<p class="description"><?php _e('If you don\'t use Vietnamese, leave it blank.');?> <a href="https://console.fpt.ai/" target="_blank"><small>Get FPT API KEY</small></a></p>
 					</td>
 				</tr>
 
