@@ -14,6 +14,7 @@ function ttsaudio_save( $post_id ){
 
   $status = sanitize_text_field( $_POST[$prefix . 'status'] );
   update_post_meta( $post_id, $prefix . 'status' , $status );
+
   $tts_settings = $_POST[$prefix . 'settings'];
   $tts_settings['text'] = sanitize_textarea_field($tts_settings['text']);
 
@@ -21,6 +22,7 @@ function ttsaudio_save( $post_id ){
 
   if($status=='delete') {
     $tts = new TTSAudio;
+
     unlink($tts->mp3_dir.'/'.$tts_settings['mp3']);
     delete_post_meta($post_id, $prefix . 'settings');
   }
@@ -106,7 +108,7 @@ function ttsMakeMP3() {
   $voice = filter_input(INPUT_POST, "voice", FILTER_SANITIZE_STRING);
   $custom_audio = filter_input(INPUT_POST, "custom_audio", FILTER_SANITIZE_STRING);
 
-  $meta_settings = get_post_meta( $post_id, $tts->prefix . 'meta_settings', true );
+  $meta_settings = get_post_meta( $post_id, $tts->prefix . 'settings', true );
   unlink($tts->mp3_dir.'/'.$meta_settings['mp3']);
 
   $filename = $tts->ttsDownloadMP3($text, $voice);
@@ -137,7 +139,7 @@ function ajax_script(){
       var status = $(this).val();
       $.post(ajaxurl, {action: 'addStructureBox', post_id: <?php echo $post->ID;?>, security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>'}, function (data) {
         if(status  == 'enable') $('table#ttsaudio_form').append(data);
-        else $('table#ttsaudio_form').find('tr.more').remove();
+        else $('table#ttsaudio_form').find('tr.more').hide();
       });
     });
 

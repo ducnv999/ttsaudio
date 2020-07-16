@@ -10,17 +10,7 @@ class TTSAudio{
   function __construct(){
     $this->prefix = self::$prefix;
     $this->options = get_option( ttsaudio_option_name );
-    $this->voices = array('de-DE_BirgitV3Voice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterV3Voice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateV3Voice'=>'Kate: British English female voice.','en-US_AllisonV3Voice'=>'Allison: American English female voice.','en-US_LisaV3Voice'=>'Lisa: American English female voice.','en-US_MichaelV3Voice'=>'Michael: American English male voice.','es-ES_EnriqueV3Voice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraV3Voice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaV3Voice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaV3Voice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeV3Voice'=>'Renee: French (français) female voice.','it-IT_FrancescaV3Voice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiV3Voice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaV3Voice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.',
-    'vi-leminh'=>'Lê Minh (Nam miền Bắc)',
-    'vi-banmai'=>'Ban Mai (Nữ miền Bắc)',
-    'vi-thuminh'=>'Thu Minh (Nữ miền Bắc)',
-    'vi-giahuy'=>'Gia Huy (Nam miền Trung)',
-    'vi-myan'=>'Mỹ An (Nữ miền Trung)',
-    'vi-lannhi'=>'Lan Nhi (Nữ miền Nam)',
-    'vi-linhsan'=>'Linh San (Nữ miền Nam)',
-    'vi-male'=>'Cao Chung (Nam miền Bắc)',
-    'vi-female'=>'Thu Dung (Nữ miền Bắc)',
-    'vi-hatieumai'=>'Hà Tiểu Mai (Nữ miền Nam)'
+    $this->voices = array('de-DE_BirgitV3Voice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterV3Voice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateV3Voice'=>'Kate: British English female voice.','en-US_AllisonV3Voice'=>'Allison: American English female voice.','en-US_LisaV3Voice'=>'Lisa: American English female voice.','en-US_MichaelV3Voice'=>'Michael: American English male voice.','es-ES_EnriqueV3Voice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraV3Voice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaV3Voice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaV3Voice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeV3Voice'=>'Renee: French (français) female voice.','it-IT_FrancescaV3Voice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiV3Voice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaV3Voice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.','vi-leminh'=>'Lê Minh (Nam miền Bắc)','vi-banmai'=>'Ban Mai (Nữ miền Bắc)','vi-thuminh'=>'Thu Minh (Nữ miền Bắc)','vi-giahuy'=>'Gia Huy (Nam miền Trung)','vi-myan'=>'Mỹ An (Nữ miền Trung)','vi-lannhi'=>'Lan Nhi (Nữ miền Nam)','vi-linhsan'=>'Linh San (Nữ miền Nam)','vi-male'=>'Cao Chung (Nam miền Bắc)','vi-female'=>'Thu Dung (Nữ miền Bắc)','vi-hatieumai'=>'Hà Tiểu Mai (Nữ miền Nam)'
     );
 
     $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
@@ -79,15 +69,8 @@ class TTSAudio{
     return $url;
   }
 
-  private function AcronymFPT($str) {
-		$search = array('CLB','HLV','UBND','TP','THPT','THCS','NXB','BCH','QDND','LHQ','ANTT','CNTT','GD–ĐT','HĐQT','thế kỷ XX','thế kỷ XXI');
-		$replace = array('câu lạc bộ','huấn luyện viên','uỷ ban nhân dân','thành phố','trung học phổ thông','trung học cơ sở','nhà xuất bản','ban chấp hành','quân đội nhân dân','Liên Hiệp Quốc','An ninh trật tự','Công nghệ thông tin','Giáo dục và Đào tạo','Hội đồng quản trị','thế kỷ hai mươi','thế kỷ hai mốt');
-		$str = str_replace($search, $replace, $str);
-		return $str;
-	}
-
   private function ttsFPT( $text, $voice = 'female', $speed = 0){
-		$text = $this->AcronymFPT ($text);
+
     $headers = [
 			'api-key: '.$this->options['fpt_api_key'],
 			'voice: '.$voice,

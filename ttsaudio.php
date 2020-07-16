@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: TTS Audio
-Plugin URI: http://songduc.com/ttsaudio
+Plugin URI: http://gearthemes.com/ttsaudio
 Description: This plugin help you convert your text to speech.
 Author: Duc Nguyen (0936 770 119)
 Author URI: https://fb.com/ducwp

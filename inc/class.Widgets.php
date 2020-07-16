@@ -125,6 +125,9 @@ class TTSAudio_Playlist extends WP_Widget {
 					</li>
 				<?php $i++; endforeach; ?>
 			</ul>
+			<div class="copyrights">
+				<a href="#">TTSAudio plugin by GearThemes</a>
+			</div>
 		</div>
 
 		<script>
