@@ -56,6 +56,12 @@ function ttsaudio_plugin_scripts(){
 
 }
 
+function my_enqueue($hook) {
+  if( 'toplevel_page_ttsaudio_options' != $hook ) return;
+  wp_enqueue_style( 'ttsaudio-options',  ttsaudio_plugin_url . 'assets/css/options.css' );
+}
+add_action( 'admin_enqueue_scripts', 'my_enqueue' );
+
 add_filter( 'the_content', array($tts, 'ttsAudioContent') );
 
 add_filter( 'query_vars', function( $query_vars ){
@@ -65,3 +71,31 @@ add_filter( 'query_vars', function( $query_vars ){
 
 add_action( 'template_include', array($tts, 'template_include') );
 add_action( 'wp_footer', array($tts, 'footer_script'), 100 );
+
+
+function kl_rename_plugin_menus() {
+    global $menu;
+
+    // Define your changes here
+    $updates = array(
+        "ttsaudio_options" => array(
+            'name' => 'Testname',
+            'icon' => 'dashicons-lock'
+        )
+    );
+
+    foreach ( $menu as $k => $props ) {
+
+        // Check for new values
+        $new_values = ( isset( $updates[ $props[0] ] ) ) ? $updates[ $props[0] ] : false;
+        if ( ! $new_values ) continue;
+
+        // Change menu name
+        $menu[$k][0] = $new_values['name'];
+
+        // Optionally change menu icon
+        if ( isset( $new_values['icon'] ) )
+            $menu[$k][6] = $new_values['icon'];
+    }
+}
+add_action( 'admin_init', 'kl_rename_plugin_menus' );

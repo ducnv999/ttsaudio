@@ -125,9 +125,7 @@ class TTSAudio_Playlist extends WP_Widget {
 					</li>
 				<?php $i++; endforeach; ?>
 			</ul>
-			<div class="copyrights">
-				<?php printf('<a href="%s" target="_blank">TTSAudio by GearThemes</a>', 'https://gearthemes.com');?>
-			</div>
+			<?php echo TTSAudio::copyrights();?>
 		</div>
 
 		<script>
@@ -227,11 +225,11 @@ class TTSAudio_Playlist extends WP_Widget {
 			<?php }?></p>
 
     <p><label for="<?php echo $this->get_field_id('include'); ?>"><?php _e('Include posts','ttsaudio');?>:</label>
-      <input name="<?php echo $this->get_field_name('include'); ?>" id="<?php echo $this->get_field_id('include'); ?>" value="<?php echo $include; ?>" type="text" class="regular-text" /><br />
+      <input name="<?php echo $this->get_field_name('include'); ?>" id="<?php echo $this->get_field_id('include'); ?>" value="<?php echo $include; ?>" type="text" class="widefat" /><br />
       <em><?php _e('Enter post IDs, separated with commas.','ttsaudio');?></em></p>
 
     <p><label for="<?php echo $this->get_field_id('exclude'); ?>"><?php _e('Exclude posts','ttsaudio');?>:</label>
-      <input name="<?php echo $this->get_field_name('exclude'); ?>" id="<?php echo $this->get_field_id('exclude'); ?>" value="<?php echo $exclude; ?>" type="text" class="regular-text" /><br />
+      <input name="<?php echo $this->get_field_name('exclude'); ?>" id="<?php echo $this->get_field_id('exclude'); ?>" value="<?php echo $exclude; ?>" type="text" class="widefat" /><br />
       <em><?php _e('Enter post IDs, separated with commas.','ttsaudio');?></em></p>
 
 		<p><label for="<?php echo $this->get_field_id('orderby'); ?>"><?php _e('Order by', 'ttsaudio'); ?>:</label>
