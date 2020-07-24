@@ -10,34 +10,41 @@
 .ttsaudio-plyr--single {
   margin-bottom: 20px;
 }
-.ttsaudio-plyr a.cpr {
+.ttsaudio-plyr--single__info {
   position: absolute;
   right: 0;
   bottom: 0;
   background: url(../img/info.svg) center no-repeat;
   background-size: 70%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   width: 14px;
   height: 14px;
   text-decoration: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  outline: none;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  outline: none !important;
   border-top-left-radius: 4px;
 }
-.ttsaudio-plyr a.cpr:hover, .ttsaudio-plyr a.cpr:focus, .ttsaudio-plyr a.cpr:active {
+.ttsaudio-plyr--single__info:hover, .ttsaudio-plyr--single__info:focus, .ttsaudio-plyr--single__info:active {
   text-decoration: none;
   border: none;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+.ttsaudio-plyr--default .ttsaudio-plyr--single__info {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 .ttsaudio-plyr .plyr[max-width~="360px"] .plyr__volume {
   display: none;
+}
+.ttsaudio-plyr .plyr button {
+  background-color: unset;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) a.cpr {
   background-color: rgba(255, 255, 255, 0.2);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls {
+  background: none;
   border: none;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer {
@@ -65,10 +72,20 @@
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio--stopped > button {
   background: none;
 }
-.ttsaudio-plyr--canva .plyr--audio .plyr__controls {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
+  color: #fff;
+}
+.ttsaudio-plyr--canva {
   background-image: -webkit-gradient(linear, left top, right top, from(#00C4CC), color-stop(30%, #2599B9), to(#684C96));
   background-image: linear-gradient(to right, #00C4CC 0%, #2599B9 30%, #684C96 100%);
-  border: none;
 }
 .ttsaudio-plyr--canva .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
   background: #2599B9;
@@ -79,10 +96,9 @@
 .ttsaudio-plyr--canva .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
   background: #2599B9;
 }
-.ttsaudio-plyr--apple .plyr--audio .plyr__controls {
+.ttsaudio-plyr--apple {
   background-image: -webkit-gradient(linear, left top, right top, from(#F2528E), to(#7433B5));
   background-image: linear-gradient(to right, #F2528E 0%, #7433B5 100%);
-  border: none;
 }
 .ttsaudio-plyr--apple .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
   background: #ff00ff;
@@ -93,9 +109,8 @@
 .ttsaudio-plyr--apple .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
   background: #ff00ff;
 }
-.ttsaudio-plyr--amber .plyr--audio .plyr__controls {
+.ttsaudio-plyr--amber {
   background-color: #f0a30a;
-  border: none;
 }
 .ttsaudio-plyr--amber .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
   background: #f0a30a;
@@ -122,11 +137,11 @@
   list-style: none;
   cursor: pointer;
   line-height: 1.6;
-  border: none;
-  border-bottom: 1px dotted #dbe3e8;
+  border: none !important;
+  border-bottom: 1px dotted #dbe3e8 !important;
 }
 .ttsaudio-plyr--playlist__list li:last-child {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr--playlist__list li.active {
   color: #3498db;
@@ -156,7 +171,7 @@
           box-shadow: none !important;
 }
 .ttsaudio-plyr--playlist__author a:hover, .ttsaudio-plyr--playlist__author a:focus, .ttsaudio-plyr--playlist__author a:active {
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff !important;
   text-decoration: none;
   outline: none;
   border: none;
@@ -169,6 +184,9 @@
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a {
   color: rgba(0, 0, 0, 0.4);
+}
+.ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:hover, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:focus, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:active {
+  color: rgba(0, 0, 0, 0.7) !important;
 }
 
 /*# sourceMappingURL=style.css.map */

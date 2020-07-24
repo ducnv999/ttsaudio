@@ -6,36 +6,50 @@
     display: none;
   }
 
+  $g: &;
+
   &--single{
     margin-bottom: 20px;
-  }
 
-  a.cpr {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    background: url(../img/info.svg) center no-repeat;
-    background-size: 70%;
-    background-color: rgba(0, 0, 0, 0.2);
-    width: 14px;
-    height: 14px;
-    text-decoration: none;
-    box-shadow: none;
-    outline: none;
-    border-top-left-radius: 4px;
-
-    &:hover,
-    &:focus,&:active
-     {
+    &__info {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background: url(../img/info.svg) center no-repeat;
+      background-size: 70%;
+      background-color: rgba(255, 255, 255, 0.2);
+      width: 14px;
+      height: 14px;
       text-decoration: none;
-      border: none;
-      box-shadow: none;
+      box-shadow: none!important;
+      outline: none!important;
+      border-top-left-radius: 4px;
+
+      &:hover,
+      &:focus,&:active
+       {
+        text-decoration: none;
+        border: none;
+        box-shadow: none;
+      }
+
+      #{$g}--default &{
+        background-color: rgba(0, 0, 0, 0.2);
+      }
     }
+
   }
 
   .plyr[max-width~="360px"] .plyr__volume {
     display: none;
   }
+
+  & .plyr{
+    button{
+      background-color: unset;
+    }
+  }
+
 
   /* == Themes ==*/
   &:not(&--default){
@@ -48,6 +62,7 @@
 
       &--audio{
         .plyr__controls {
+          background: none;
           border: none;
 
           .plyr__progress--buffer{
@@ -82,14 +97,26 @@
       }
 
     }
+
+    .ttsaudio-plyr--playlist__list{
+      border: none;
+      background-color: rgba(255,255,255,0.1);
+      li{
+        border-color: rgba(255,255,255,0.5);
+        color: rgba(255,255,255,0.7);
+
+        &:hover,
+        &.active{
+          color: #fff;
+        }
+      }
+    }
   }
 
   //Skins
   @import "canva";
   @import "apple";
   @import "amber";
-
-
 
   /* Playlist widget*/
   $grandparent: &;
@@ -112,11 +139,11 @@
         list-style: none;
         cursor: pointer;
         line-height: 1.6;
-        border: none;
-        border-bottom: 1px dotted #dbe3e8;
+        border: none!important;
+        border-bottom: 1px dotted #dbe3e8!important;
 
         &:last-child {
-          border-bottom: none;
+          border-bottom: none!important;
         }
 
         &:hover, &.active {
@@ -152,7 +179,7 @@
           box-shadow: none!important;
 
           &:hover, &:focus, &:active {
-            color: rgba(255, 255, 255, 0.4);
+            color: #fff!important;
             text-decoration: none;
             outline: none;
             border: none;
@@ -161,12 +188,14 @@
         }
 
       #{$grandparent}--default & {
-
         border: 1px solid #dbe3e8;
         border-top: none;
 
         a{
           color: rgba(0, 0, 0, 0.4);
+          &:hover, &:focus, &:active {
+            color: rgba(0, 0, 0, 0.7)!important;
+          }
         }
       }
     }

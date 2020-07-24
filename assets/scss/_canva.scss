@@ -1,9 +1,8 @@
 &--canva{
+  background-image: linear-gradient(to right, #00C4CC 0%, #2599B9 30%, #684C96 100%);
   .plyr{
     &--audio{
       .plyr__controls {
-        background-image: linear-gradient(to right, #00C4CC 0%, #2599B9 30%, #684C96 100%);
-        border: none;
 
         $thumb-color: #2599B9;
 
@@ -22,4 +21,5 @@
       }
     }
   }
+
 }

@@ -1,10 +1,8 @@
 &--amber{
+  background-color: #f0a30a;
   .plyr{
     &--audio{
       .plyr__controls {
-        background-color: #f0a30a;
-        border: none;
-
         input[type=range]:active{
           &::-webkit-slider-thumb {
             background: #f0a30a;

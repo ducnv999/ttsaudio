@@ -183,7 +183,7 @@ class TTSAudio{
       if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
       else $mp3_url = add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
 
-      $cpr = sprintf('<a class="cpr" title="%s" href="%s" target="_blank"></a>', 'TTSAudio by GearThemes', 'https://gearthemes.com');
+      $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTSAudio by GearThemes', 'https://gearthemes.com');
       $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';
       $custom_content .= sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
 

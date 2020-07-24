@@ -43,7 +43,7 @@ function ttsaudio_plugin_scripts(){
 	wp_enqueue_style( 'ttsaudio-plyr',  TTSAUDIO_URI . 'assets/css/plyr.css' );
   wp_enqueue_style( 'ttsaudio-style',  TTSAUDIO_URI . 'assets/css/style.css' );
 
-	wp_enqueue_style( 'ttsaudio-plyr-playlist',  TTSAUDIO_URI . 'assets/css/style.css' );
+	//wp_enqueue_style( 'ttsaudio-plyr-playlist',  TTSAUDIO_URI . 'assets/css/style.css' );
 	// wp_enqueue_style( 'ttsaudio-plyr-skin-'.$options['plyr_skin'],  TTSAUDIO_URI . 'assets/css/skins/'.$options['plyr_skin'].'.css' );
 	// $instance = get_option( 'widget_ttsaudio-playlist' );
 	// if($instance!=='' && is_array($instance)){
