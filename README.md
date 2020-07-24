@@ -1,2 +1,2 @@
 # TTSAudio
- Text to speech plugin for WP
+ Text-To-Speech plugin for WordPress
