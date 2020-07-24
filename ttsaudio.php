@@ -64,20 +64,3 @@ add_filter( 'query_vars', function( $query_vars ){
 
 add_action( 'template_include', array($tts, 'template_include') );
 add_action( 'wp_enqueue_scripts', array($tts, 'single_script' ) );
-
-//PRO
-//add_filter('ttsaudio_skins', 'add_new_skins');
-function add_new_skins( $skins ){
-
-  // $skin_arr = ['duc'];
-  // array_push($skin_arr, $skins);
-  //
-  // $output_skins = [];
-  // foreach ($skins as $skin) {
-  //   $output_skins[$skin] = ucwords(str_replace('-',' - ',$skin ));
-  // }
-
-  $skins = $skins + ['aaa' => 'AAA'];
-
-  return $skins;
-}
