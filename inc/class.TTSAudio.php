@@ -17,7 +17,7 @@ class TTSAudio{
   }
 
   public function PlyrSkin(){
-    $skin_arr = ['default', 'dark', 'amber', 'apple', 'canva', 'lime', 'mauve', 'pink', 'red', 'sienna', 'teal', 'violet'];
+    $skin_arr = ['default', 'dark', 'amber', 'apple', 'canva', 'mauve'];
 
     $output_skins = [];
     foreach ($skin_arr as $skin) {
