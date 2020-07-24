@@ -170,13 +170,12 @@
             if (!element.elementQueriesSetupInformation) {
                 element.elementQueriesSetupInformation = new SetupInformation(element, id);
             }
+
             if (!element.elementQueriesSensor) {
                 element.elementQueriesSensor = new ResizeSensor(element, function () {
                     element.elementQueriesSetupInformation.call();
                 });
             }
-
-            element.elementQueriesSetupInformation.call();
         }
 
         /**
@@ -224,7 +223,7 @@
         function findElementQueriesElements(container) {
             var query = getQuery(container);
 
-            for (var selector in allQueries) if (allQueries.hasOwnProperty(mode)) {
+            for (var selector in allQueries) if (allQueries.hasOwnProperty(selector)) {
                 // find all elements based on the extract query selector from the element query rule
                 var elements = query(selector, container);
 
@@ -324,7 +323,7 @@
                 }
             }
 
-            element.resizeSensor = new ResizeSensor(element, check);
+            element.resizeSensorInstance = new ResizeSensor(element, check);
             check();
         }
 
@@ -384,7 +383,9 @@
                     } else if (4 === rules[i].type) {
                         readRules(rules[i].cssRules || rules[i].rules);
                     } else if (3 === rules[i].type) {
-                        readRules(rules[i].styleSheet.cssRules);
+                        if(rules[i].styleSheet.hasOwnProperty("cssRules")) {
+                            readRules(rules[i].styleSheet.cssRules);
+                        }
                     }
                 }
             }
@@ -407,9 +408,11 @@
 
             document.body.addEventListener(animationStart, function (e) {
                 var element = e.target;
-                var styles = window.getComputedStyle(element, null);
+                var styles = element && window.getComputedStyle(element, null);
+                var animationName = styles && styles.getPropertyValue('animation-name');
+                var requiresSetup = animationName && (-1 !== animationName.indexOf('element-queries'));
 
-                if (-1 !== styles.getPropertyValue('animation-name').indexOf('element-queries')) {
+                if (requiresSetup) {
                     element.elementQueriesSensor = new ResizeSensor(element, function () {
                         if (element.elementQueriesSetupInformation) {
                             element.elementQueriesSetupInformation.call();
@@ -437,7 +440,7 @@
             for (var i = 0, j = document.styleSheets.length; i < j; i++) {
                 try {
                     if (document.styleSheets[i].href && 0 === document.styleSheets[i].href.indexOf('file://')) {
-                        console.log("CssElementQueries: unable to parse local css files, " + document.styleSheets[i].href);
+                        console.warn("CssElementQueries: unable to parse local css files, " + document.styleSheets[i].href);
                     }
 
                     readRules(document.styleSheets[i].cssRules || document.styleSheets[i].rules || document.styleSheets[i].cssText);
@@ -445,7 +448,6 @@
                 }
             }
 
-            // findElementQueriesElements();
             findResponsiveImages();
         };
 
@@ -481,11 +483,11 @@
             delete element.elementQueriesSetupInformation;
             delete element.elementQueriesSensor;
 
-        } else if (element.resizeSensor) {
+        } else if (element.resizeSensorInstance) {
             //responsive image
 
-            element.resizeSensor.detach();
-            delete element.resizeSensor;
+            element.resizeSensorInstance.detach();
+            delete element.resizeSensorInstance;
         }
     };
 

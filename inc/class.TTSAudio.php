@@ -16,25 +16,10 @@ class TTSAudio{
     $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
   }
 
-  public function PlyrSkin_BK( $folder ){
-		if($folder == '') return;
-
-    $output = array();
-		if(file_exists($folder)){
-			foreach (new DirectoryIterator( $folder.'/') as $file) {
-        if($file->isDot()) continue;
-        $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
-				$output[$name]= ucwords(str_replace('-',' - ',$name ));
-			}
-		}
-
-    return $output;
-	}
-
   public function PlyrSkin( $folder ){
 		if($folder == '') return;
 
-    $skin_arr = ['default', 'amber', 'apple', 'canva', 'dark'];
+    $skin_arr = ['default', 'amber', 'apple', 'canva', 'dark', 'lime', 'mauve', 'pink', 'red', 'sienna', 'teal', 'violet'];
 
     $output_skins = [];
     foreach ($skin_arr as $skin) {

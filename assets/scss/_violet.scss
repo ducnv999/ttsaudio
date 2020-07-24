@@ -1,10 +1,10 @@
-&--amber{
-  background-color: #f0a30a;
+&--violet{
+  background-color: #aa00ff;
   .plyr{
     &--audio{
       .plyr__controls {
-        
-        $thumb-color: #f0a30a;
+
+        $thumb-color: #aa00ff;
 
         input[type=range]:active{
           &::-webkit-slider-thumb {

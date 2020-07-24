@@ -1,10 +1,9 @@
-&--amber{
-  background-color: #f0a30a;
+&--dark{
+  background-color: #1C1C1C;
   .plyr{
     &--audio{
       .plyr__controls {
-        
-        $thumb-color: #f0a30a;
+        $thumb-color: #222;
 
         input[type=range]:active{
           &::-webkit-slider-thumb {
@@ -17,9 +16,18 @@
             background: $thumb-color;
           }
         }
+
       }
 
     }
 
+  }
+
+  .ttsaudio-plyr--playlist__list{
+    background-color: #222!important;
+    border: none; color: #ccc;
+    li{
+      border-color: #454545!important;
+    }
   }
 }

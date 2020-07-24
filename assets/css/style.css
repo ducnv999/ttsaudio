@@ -74,10 +74,10 @@
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list {
   border: none;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.3) !important;
   color: rgba(255, 255, 255, 0.7);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
@@ -120,6 +120,110 @@
 }
 .ttsaudio-plyr--amber .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
   background: #f0a30a;
+}
+.ttsaudio-plyr--dark {
+  background-color: #1C1C1C;
+}
+.ttsaudio-plyr--dark .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #222;
+}
+.ttsaudio-plyr--dark .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #222;
+}
+.ttsaudio-plyr--dark .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #222;
+}
+.ttsaudio-plyr--dark .ttsaudio-plyr--playlist__list {
+  background-color: #222 !important;
+  border: none;
+  color: #ccc;
+}
+.ttsaudio-plyr--dark .ttsaudio-plyr--playlist__list li {
+  border-color: #454545 !important;
+}
+.ttsaudio-plyr--lime {
+  background-color: #a4c400;
+}
+.ttsaudio-plyr--lime .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #a4c400;
+}
+.ttsaudio-plyr--lime .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #a4c400;
+}
+.ttsaudio-plyr--lime .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #a4c400;
+}
+.ttsaudio-plyr--mauve {
+  background-color: #76608a;
+}
+.ttsaudio-plyr--mauve .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #76608a;
+}
+.ttsaudio-plyr--mauve .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #76608a;
+}
+.ttsaudio-plyr--mauve .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #76608a;
+}
+.ttsaudio-plyr--pink {
+  background-color: #f472cf;
+}
+.ttsaudio-plyr--pink .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #f472cf;
+}
+.ttsaudio-plyr--pink .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #f472cf;
+}
+.ttsaudio-plyr--pink .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #f472cf;
+}
+.ttsaudio-plyr--red {
+  background-color: #ed0729;
+}
+.ttsaudio-plyr--red .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #ed0729;
+}
+.ttsaudio-plyr--red .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #ed0729;
+}
+.ttsaudio-plyr--red .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #ed0729;
+}
+.ttsaudio-plyr--sienna {
+  background-color: #7a3a3e;
+}
+.ttsaudio-plyr--sienna .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #7a3a3e;
+}
+.ttsaudio-plyr--sienna .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #7a3a3e;
+}
+.ttsaudio-plyr--sienna .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #7a3a3e;
+}
+.ttsaudio-plyr--teal {
+  background-color: #00aaa8;
+}
+.ttsaudio-plyr--teal .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #00aaa8;
+}
+.ttsaudio-plyr--teal .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #00aaa8;
+}
+.ttsaudio-plyr--teal .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #00aaa8;
+}
+.ttsaudio-plyr--violet {
+  background-color: #aa00ff;
+}
+.ttsaudio-plyr--violet .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #aa00ff;
+}
+.ttsaudio-plyr--violet .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #aa00ff;
+}
+.ttsaudio-plyr--violet .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #aa00ff;
 }
 .ttsaudio-plyr--playlist__list {
   list-style: none;
