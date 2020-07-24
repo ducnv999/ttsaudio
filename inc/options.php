@@ -31,7 +31,7 @@ function ttsaudio_plugin_save_ajax() {
 
 add_action( 'admin_menu', 'theme_options_add_page' );
 function theme_options_add_page() {
-	add_menu_page( __( 'TTSAudio Options', 'ttsaudio' ), __( 'TTSAudio', 'ttsaudio' ), 'edit_theme_options', 'ttsaudio_options', 'theme_options_do_page', 'dashicons-controls-volumeon' );
+	add_menu_page( __( 'TTS Audio Options', 'ttsaudio' ), __( 'TTS Audio', 'ttsaudio' ), 'edit_theme_options', 'ttsaudio_options', 'theme_options_do_page', 'dashicons-controls-volumeon' );
 }
 
 /**
@@ -42,7 +42,7 @@ function theme_options_do_page() {
 	$tts = new TTSAudio;
 ?>
 	<div class="wrap ttsaudio-options">
-		<?php printf('<h2>%1$s <a class="buy-pro dashicons-before dashicons-cart" href="%2$s" title="%3$s" >%3$s</a></h2>', __( 'TTSAudio Options', 'ttsaudio' ), 'https://gearthemes.com/ttsaudio-pro', 'buy TTSAudio Pro');?>
+		<?php printf('<h2>%1$s <a class="buy-pro dashicons-before dashicons-cart" href="%2$s" title="%3$s" >%3$s</a></h2>', __( 'TTS Audio Options', 'ttsaudio' ), 'https://gearthemes.com/ttsaudio-pro', 'buy TTSAudio Pro');?>
 		<div id="saved"></div>
 		<form action="/" name="ttsaudio_form" id="ttsaudio_form">
 
