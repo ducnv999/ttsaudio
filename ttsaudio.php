@@ -19,16 +19,6 @@ require_once( TTSAUDIO_DIR . 'inc/class.TTSAudio.php');
 require_once( TTSAUDIO_DIR . 'inc/options.php');
 require_once( TTSAUDIO_DIR . 'inc/class.Widgets.php');
 require_once( TTSAUDIO_DIR . 'inc/metaboxes.php');
-require_once( TTSAUDIO_DIR . 'scssphp/scss.inc.php');
-
-use ScssPhp\ScssPhp\Compiler;
-
-$scss = new Compiler();
-
-echo $scss->compile('
-  $color: #abc;
-  div { color: lighten($color, 20%); }
-');
 
 $tts = new TTSAudio;
 
