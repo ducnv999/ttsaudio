@@ -9,14 +9,14 @@ class TTSAudio{
 
   function __construct(){
     $this->prefix = self::$prefix;
-    $this->options = get_option( ttsaudio_option_name );
+    $this->options = get_option( TTSAUDIO_OPTION );
     $this->voices = array('de-DE_BirgitV3Voice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterV3Voice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateV3Voice'=>'Kate: British English female voice.','en-US_AllisonV3Voice'=>'Allison: American English female voice.','en-US_LisaV3Voice'=>'Lisa: American English female voice.','en-US_MichaelV3Voice'=>'Michael: American English male voice.','es-ES_EnriqueV3Voice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraV3Voice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaV3Voice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaV3Voice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeV3Voice'=>'Renee: French (français) female voice.','it-IT_FrancescaV3Voice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiV3Voice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaV3Voice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.','vi-leminh'=>'Lê Minh (Nam miền Bắc)','vi-banmai'=>'Ban Mai (Nữ miền Bắc)','vi-thuminh'=>'Thu Minh (Nữ miền Bắc)','vi-giahuy'=>'Gia Huy (Nam miền Trung)','vi-myan'=>'Mỹ An (Nữ miền Trung)','vi-lannhi'=>'Lan Nhi (Nữ miền Nam)','vi-linhsan'=>'Linh San (Nữ miền Nam)','vi-male'=>'Cao Chung (Nam miền Bắc)','vi-female'=>'Thu Dung (Nữ miền Bắc)','vi-hatieumai'=>'Hà Tiểu Mai (Nữ miền Nam)'
     );
 
     $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
   }
 
-  public function PlyrSkin( $folder ){
+  public function PlyrSkin_BK( $folder ){
 		if($folder == '') return;
 
     $output = array();
@@ -29,6 +29,20 @@ class TTSAudio{
 		}
 
     return $output;
+	}
+
+  public function PlyrSkin( $folder ){
+		if($folder == '') return;
+
+    $skin_arr = ['default', 'amber', 'apple', 'canva', 'dark'];
+
+    $output_skins = [];
+    foreach ($skin_arr as $skin) {
+      $output_skins[$skin] = ucwords(str_replace('-',' - ',$skin ));
+    }
+
+    $skins = apply_filters('ttsaudio_skins', $output_skins);
+    return $skins;
 	}
 
   public function ttsDownloadMP3( $text, $voice ){
@@ -164,13 +178,13 @@ class TTSAudio{
 
     $status  = get_post_meta( get_the_ID(), $this->prefix.'status', true );
     if(is_singular() && $status == 'enable') {
-      $options = get_option( ttsaudio_option_name );
+      $options = get_option( TTSAUDIO_OPTION );
       $settings  = get_post_meta( get_the_ID(), $this->prefix.'settings', true );
       if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
       else $mp3_url = add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
 
       $cpr = sprintf('<a class="cpr" title="%s" href="%s" target="_blank"></a>', 'TTSAudio by GearThemes', 'https://gearthemes.com');
-      $string_html = '<div class="ttsaudio-player-single"><div class="ttsaudio-player ttsaudio-%s"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3"></audio>%s</div></div>';
+      $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';
       $custom_content .= sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
 
       $custom_content .= $content;
@@ -188,17 +202,16 @@ class TTSAudio{
     } else return $original_template;
   }
 
-  public function footer_script() {
+  public function single_script(){
     if(!is_singular()) return;
-    ?>
-    <script type='text/javascript'>
-      plyr.setup('#plyr_<?php the_ID();?>');
-    </script>
-    <?php
+
+    $js = 'plyr.setup(\'#plyr_'.get_the_ID().'\');';
+
+    wp_add_inline_script( 'ttsaudio-plyr', $js );
   }
 
-  public static function copyrights(){
-    $output = '<div class="copyrights">';
+  public static function author(){
+    $output = '<div class="ttsaudio-plyr--playlist__author">';
     $output .=  sprintf('<a href="%1$s" title="%2$s" target="_blank">%2$s</a>', 'https://gearthemes.com', 'TTSAudio by GearThemes');;
     $output .= '</div>';
     return apply_filters('gt_widget_copyrights', $output);

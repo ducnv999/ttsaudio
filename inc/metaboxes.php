@@ -55,7 +55,7 @@ function show_custom_meta_box( $post ) {
 
 //Our custom meta box will be loaded on ajax
 function add_custom_meta_box( $post_id ){
-  $options = get_option( ttsaudio_option_name );
+  $options = get_option( TTSAUDIO_OPTION );
   $tts = new TTSAudio;
 
   //Settings

@@ -1,0 +1,25 @@
+&--canva{
+  .plyr{
+    &--audio{
+      .plyr__controls {
+        background-image: linear-gradient(to right, #00C4CC 0%, #2599B9 30%, #684C96 100%);
+        border: none;
+
+        $thumb-color: #2599B9;
+
+        input[type=range]:active{
+          &::-webkit-slider-thumb {
+            background: $thumb-color;
+          }
+          &::-moz-range-thumb {
+            background: $thumb-color;
+          }
+          &::-ms-thumb {
+            background: $thumb-color;
+          }
+        }
+
+      }
+    }
+  }
+}

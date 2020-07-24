@@ -95,10 +95,10 @@ class TTSAudio_Playlist extends WP_Widget {
 		if ( $title ) echo $args['before_title'] . $title . $args['after_title'];
 
 		$i=0;
-		$options = get_option( ttsaudio_option_name );
+		$options = get_option( TTSAUDIO_OPTION );
 		$post_count = count($r->posts);
 		?>
-		<div id="plyr-<?php echo $args['widget_id'];?>" class="ttsaudio-player widget-playlist ttsaudio-<?php echo $skin;?>">
+		<div id="plyr-<?php echo $args['widget_id'];?>" class="ttsaudio-plyr ttsaudio-plyr--<?php echo $skin;?> ttsaudio-plyr--playlist">
 			<div class="plyr">
 				<audio controls></audio>
 				<div class="buttons">
@@ -107,7 +107,7 @@ class TTSAudio_Playlist extends WP_Widget {
 				</div>
 			</div>
 
-			<ul class="playlist">
+			<ul class="ttsaudio-plyr--playlist__list">
 				<?php foreach ( $r->posts as $recent_post ) : ?>
 					<?php
 					$post_title = get_the_title( $recent_post->ID );
@@ -120,14 +120,13 @@ class TTSAudio_Playlist extends WP_Widget {
 					<li data-id="<?php echo $i;?>" data-audio="<?php echo $mp3_url;?>">
 						<?php echo '<b>'.str_pad($i+1, 2, "0", STR_PAD_LEFT) .'</b>. '. $title ; ?>
 						<?php if ( $show_date ) : ?>
-							<span class="post-date"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
+							<span class="postdate"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
 						<?php endif; ?>
 					</li>
 				<?php $i++; endforeach; ?>
 			</ul>
-			<?php echo TTSAudio::copyrights();?>
+			<?php echo TTSAudio::author();?>
 		</div>
-
 		<script>
 			jQuery(function ($) {
 				$('#plyr-<?php echo $args['widget_id'];?>').PlyrPlaylist({nextSongToShow:<?php echo $post_count;?>, prevSongToShow:<?php echo $post_count;?>});
@@ -173,7 +172,7 @@ class TTSAudio_Playlist extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$tts = new TTSAudio;
-		$options = get_option( ttsaudio_option_name );
+		$options = get_option( TTSAUDIO_OPTION );
 
 		$title     = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$skin    = isset( $instance['skin'] ) ? $instance['skin'] : $options['plyr_skin'];
@@ -190,7 +189,7 @@ class TTSAudio_Playlist extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 		<p><label for="<?php echo $this->get_field_id('skin'); ?>"><?php esc_html_e('Skin', 'ttsaudio'); ?>:</label>
-			<?php $skins = $tts->PlyrSkin(ttsaudio_skins_dir);?>
+			<?php $skins = $tts->PlyrSkin(TTSAUDIO_SKIN_DIR);?>
 			<select id="<?php echo $this->get_field_id('skin');?>" name="<?php echo $this->get_field_name('skin');?>">
 				<?php foreach($skins as $key =>  $value){?>
 				<option value="<?php echo $key;?>" <?php selected( $skin, $key);?>><?php echo $value;?></option>

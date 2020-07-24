@@ -32,9 +32,13 @@
 				this.player = document.querySelector(selector+' .plyr');
 				this.next = document.querySelector(selector+' .next');
 				this.prev = document.querySelector(selector+' .prev');
-				plyr.setup(this.player);
-				this.radio = plyr.get(this.player)[0];
-				this.songs = document.querySelectorAll(selector+' .ttsaudio-plyr--playlist__list li');
+				//Plyr.setup(this.player);
+        alert(this.player);
+        const pl = new Plyr(this.player);
+        //alert(pl);
+				//this.radio = Plyr.get(this.player)[0];
+        this.radio = pl.player[0];
+				this.songs = document.querySelectorAll(selector+' .playlist li');
 				var i;
 				for(i = 0; i < this.songs.length; i++) {
 					this.songs[i].onclick = function(e) {

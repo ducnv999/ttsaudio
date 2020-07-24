@@ -7,8 +7,8 @@ function ttsaudio_plugin_save_ajax() {
 	$data = $_POST;
 	unset($data['security'], $data['action']);
 
-	if(!is_array(get_option(ttsaudio_option_name))) $options = array();
-	else $options = get_option(ttsaudio_option_name);
+	if(!is_array(get_option(TTSAUDIO_OPTION))) $options = array();
+	else $options = get_option(TTSAUDIO_OPTION);
 
 	if($options['mp3_dir']!='' && file_exists($options['mp3_dir'])) {
 		rename($options['mp3_dir'], $data['mp3_dir']);
@@ -23,7 +23,7 @@ function ttsaudio_plugin_save_ajax() {
 	} else $diff = array();
 
 	if(!empty($diff)) {
-		if(update_option(ttsaudio_option_name, $data)) die('1');
+		if(update_option(TTSAUDIO_OPTION, $data)) die('1');
 		else die('0');
 	} else die('1');
 
@@ -38,7 +38,7 @@ function theme_options_add_page() {
  * Create the options page
  */
 function theme_options_do_page() {
-	$options = get_option( ttsaudio_option_name );
+	$options = get_option( TTSAUDIO_OPTION );
 	$tts = new TTSAudio;
 ?>
 	<div class="wrap ttsaudio-options">
@@ -52,7 +52,7 @@ function theme_options_do_page() {
 					<td>
 						<select name="plyr_skin" class="regular-text">
 							<?php
-							$skins = $tts->PlyrSkin(ttsaudio_skins_dir);
+							$skins = $tts->PlyrSkin(TTSAUDIO_SKIN_DIR);
 							foreach ( $skins as $key => $value ) {
 								?>
 									<option value="<?php echo esc_attr( $key );?>" <?php selected( $options['plyr_skin'], esc_attr( $key ) ); ?>><?php echo esc_attr( $value );?></option>
