@@ -52,7 +52,7 @@ function theme_options_do_page() {
 					<td>
 						<select name="plyr_skin" class="regular-text">
 							<?php
-							$skins = $tts->PlyrSkin(TTSAUDIO_SKIN_DIR);
+							$skins = $tts->PlyrSkin();
 							foreach ( $skins as $key => $value ) {
 								?>
 									<option value="<?php echo esc_attr( $key );?>" <?php selected( $options['plyr_skin'], esc_attr( $key ) ); ?>><?php echo esc_attr( $value );?></option>

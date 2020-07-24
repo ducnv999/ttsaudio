@@ -16,10 +16,8 @@ class TTSAudio{
     $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
   }
 
-  public function PlyrSkin( $folder ){
-		if($folder == '') return;
-
-    $skin_arr = ['default', 'amber', 'apple', 'canva', 'dark', 'lime', 'mauve', 'pink', 'red', 'sienna', 'teal', 'violet'];
+  public function PlyrSkin(){
+    $skin_arr = ['default', 'dark', 'amber', 'apple', 'canva', 'lime', 'mauve', 'pink', 'red', 'sienna', 'teal', 'violet'];
 
     $output_skins = [];
     foreach ($skin_arr as $skin) {

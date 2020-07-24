@@ -1,6 +1,7 @@
 .ttsaudio-plyr {
   background: none;
   position: relative;
+  border-radius: 4px;
   /* == Themes ==*/
   /* Playlist widget*/
 }
@@ -24,6 +25,7 @@
           box-shadow: none !important;
   outline: none !important;
   border-top-left-radius: 4px;
+  border-bottom-right-radius: 3px;
 }
 .ttsaudio-plyr--single__info:hover, .ttsaudio-plyr--single__info:focus, .ttsaudio-plyr--single__info:active {
   text-decoration: none;
@@ -32,7 +34,7 @@
           box-shadow: none;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--single__info {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #dbe3e8;
 }
 .ttsaudio-plyr .plyr[max-width~="360px"] .plyr__volume {
   display: none;
@@ -40,48 +42,77 @@
 .ttsaudio-plyr .plyr button {
   background-color: unset;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) a.cpr {
+.ttsaudio-plyr a.cpr {
   background-color: rgba(255, 255, 255, 0.2);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls {
+.ttsaudio-plyr .plyr--audio .plyr__controls {
   background: none;
   border: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer {
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--buffer {
   color: rgba(255, 255, 255, 0.7);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer,
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
-  background-color: rgba(0, 0, 0, 0.2);
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--buffer,
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__volume--display {
+  background-color: rgba(0, 0, 0, 0.1);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__volume--display {
   color: #fff;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__time--current {
+.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__time--current {
   color: #fff;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls > button {
+.ttsaudio-plyr .plyr--audio .plyr__controls > button {
   color: #fff;
   background: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls > button:hover {
+.ttsaudio-plyr .plyr--audio .plyr__controls > button:hover {
   color: rgba(255, 255, 255, 0.7);
   background: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio--stopped > button {
+.ttsaudio-plyr .plyr--audio--stopped > button {
   background: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list {
+.ttsaudio-plyr .ttsaudio-plyr--playlist__list {
   border: none;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
+.ttsaudio-plyr .ttsaudio-plyr--playlist__list li {
   border-color: rgba(255, 255, 255, 0.3) !important;
   color: rgba(255, 255, 255, 0.7);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
+.ttsaudio-plyr .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr .ttsaudio-plyr--playlist__list li.active {
   color: #fff;
+}
+.ttsaudio-plyr--default {
+  background: #fff;
+  border: 1px solid #dbe3e8;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
+  background: #00b3ff;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
+  background: #00b3ff;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
+  background: #00b3ff;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__volume--display {
+  color: #00b3ff;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__time--current {
+  color: #4a5464;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls > button {
+  color: #4a5464;
+  background: none;
+}
+.ttsaudio-plyr--default .plyr--audio .plyr__controls > button:hover {
+  color: #fff;
+  background: #00b3ff;
 }
 .ttsaudio-plyr--canva {
   background-image: -webkit-gradient(linear, left top, right top, from(#00C4CC), color-stop(30%, #2599B9), to(#684C96));
@@ -232,8 +263,6 @@
   font-size: 14px;
   line-height: .95;
   color: #565D64;
-  border: 1px solid #dbe3e8;
-  border-top: none;
 }
 .ttsaudio-plyr--playlist__list li {
   margin: 0 !important;
@@ -254,6 +283,20 @@
   color: rgba(255, 255, 255, 0.3);
   font-style: oblique;
   font-size: 90%;
+}
+.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list {
+  border-top: 1px solid #dbe3e8;
+  background: none;
+}
+.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li {
+  color: #4a5464;
+  border-color: #ddd !important;
+}
+.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li:last-child {
+  border-bottom: none !important;
+}
+.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li.active {
+  color: #00b3ff;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li .postdate {
   color: rgba(0, 0, 0, 0.3);
@@ -283,8 +326,7 @@
           box-shadow: none;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author {
-  border: 1px solid #dbe3e8;
-  border-top: none;
+  border-top: 1px solid #dbe3e8 !important;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a {
   color: rgba(0, 0, 0, 0.4);

@@ -1,0 +1,45 @@
+&--default{
+  background: #fff;
+  border: 1px solid #dbe3e8;
+  .plyr{
+
+    &--audio{
+      .plyr__controls {
+        $thumb-color: #00b3ff;
+
+        input[type=range]:active{
+          &::-webkit-slider-thumb {
+            background: $thumb-color;
+          }
+          &::-moz-range-thumb {
+            background: $thumb-color;
+          }
+          &::-ms-thumb {
+            background: $thumb-color;
+          }
+        }
+
+        .plyr__progress--played,
+        .plyr__volume--display {
+          color: #00b3ff;
+        }
+
+        .plyr__time--current { color: #4a5464}
+
+        > button {
+          color: #4a5464;
+          background: none;
+
+          &:hover {
+            color: #fff;
+            background: #00b3ff;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}

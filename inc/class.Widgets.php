@@ -189,7 +189,7 @@ class TTSAudio_Playlist extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 		<p><label for="<?php echo $this->get_field_id('skin'); ?>"><?php esc_html_e('Skin', 'ttsaudio'); ?>:</label>
-			<?php $skins = $tts->PlyrSkin(TTSAUDIO_SKIN_DIR);?>
+			<?php $skins = $tts->PlyrSkin();?>
 			<select id="<?php echo $this->get_field_id('skin');?>" name="<?php echo $this->get_field_name('skin');?>">
 				<?php foreach($skins as $key =>  $value){?>
 				<option value="<?php echo $key;?>" <?php selected( $skin, $key);?>><?php echo $value;?></option>
