@@ -52,86 +52,83 @@
     }
   }
 
-
-  /* == Themes ==*/
-  //&:not(&--default){
-
-  a.cpr {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-
+  /* == Skins ==*/
   .plyr{
-
     &--audio{
       .plyr__controls {
         background: none;
         border: none;
-        // padding: 6px;
-
-        .plyr__progress--buffer{
-          color: rgba(255,255,255,0.7);
-        }
-        .plyr__progress--buffer,
-        .plyr__progress--played,
-        .plyr__volume--display{
-          background-color: rgba(0,0,0,0.1);
-          // height: 6px;
-        }
-        .plyr__progress--played,
-        .plyr__volume--display {
-          color: #fff;
-        }
-
-        .plyr__time--current { color: #fff}
-
-        // input[type=range]{
-        //   height: 16px;
-        //   &::-webkit-slider-thumb {
-        //     margin-top: -4px;
-        //     height: 14px;
-        //     width: 14px;
-        //     border: none;
-        //   }
-        // }
-
-        > button {
-          color: #fff;
-          background: none;
-
-          &:hover {
-            color: rgba(255,255,255,0.7);
-            background: none;
-          }
-        }
-      }
-
-      &--stopped > button{
-        background: none;
-      }
-
-    }
-
-  }
-
-  .ttsaudio-plyr--playlist__list{
-    border: none;
-    background-color: rgba(0,0,0,0.1);
-    li{
-      border-color: rgba(255,255,255,0.3)!important;
-      color: rgba(255,255,255,0.7);
-
-      &:hover,
-      &.active{
-        color: #fff;
       }
     }
   }
-  // }
 
   &:not(&--default){
-  }
 
-  //Skins
+    .plyr{
+
+      &--audio{
+        .plyr__controls {
+          background: none;
+          border: none;
+
+          .plyr__progress--buffer{
+            color: rgba(255,255,255,0.7);
+          }
+
+          .plyr__progress--buffer,
+          .plyr__progress--played,
+          .plyr__volume--display{
+            background-color: rgba(0,0,0,0.1);
+          }
+
+          .plyr__progress--played,
+          .plyr__volume--display {
+            color: #fff;
+          }
+
+          input[type=range]::-ms-fill-lower {
+            background: #fff
+          }
+
+          .plyr__time--current { color: #fff}
+
+          button {
+            color: #fff;
+            background: none;
+            &.tab-focus:focus,
+            &:hover {
+              background-color: rgba(0,0,0,0.1);
+              color: #fff
+            }
+          }
+
+        }
+
+        &--stopped > button{
+          background: none;
+        }
+
+      }
+
+    }
+
+    .ttsaudio-plyr--playlist__list{
+      border: none;
+      background-color: rgba(0,0,0,0.1);
+      li{
+        border-color: rgba(255,255,255,0.3)!important;
+        color: rgba(255,255,255,0.7);
+
+        &:hover,
+        &.active{
+          color: #fff;
+        }
+      }
+    }
+
+  } // not default
+
+  // Custom skins
   @import "default";
   @import "canva";
   @import "apple";
@@ -151,6 +148,7 @@
       font-size: 14px;
       line-height: .95;
       color: #565D64;
+      border-top: 1px solid #dbe3e8;
 
       li {
         margin: 0 !important;
@@ -173,27 +171,6 @@
           color: rgba(255, 255, 255, 0.3);
           font-style: oblique;
           font-size: 80%;
-        }
-      }
-
-      #{$grandparent}--default & {
-        border-top: 1px solid #dbe3e8;
-        background: none;
-        li{
-          color: #4a5464;
-          border-color: #ddd!important;
-
-          &:last-child {
-            border-bottom: none!important;
-          }
-
-          &:hover, &.active {
-            color: #00b3ff;
-          }
-
-          .postdate {
-            color: rgba(0, 0, 0, 0.3);
-          }
         }
       }
     }

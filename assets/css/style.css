@@ -2,7 +2,7 @@
   background: none;
   position: relative;
   border-radius: 4px;
-  /* == Themes ==*/
+  /* == Skins ==*/
   /* Playlist widget*/
 }
 .ttsaudio-plyr audio {
@@ -42,77 +42,57 @@
 .ttsaudio-plyr .plyr button {
   background-color: unset;
 }
-.ttsaudio-plyr a.cpr {
-  background-color: rgba(255, 255, 255, 0.2);
-}
 .ttsaudio-plyr .plyr--audio .plyr__controls {
   background: none;
   border: none;
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--buffer {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls {
+  background: none;
+  border: none;
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer {
   color: rgba(255, 255, 255, 0.7);
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--buffer,
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__volume--display {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer,
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
   background-color: rgba(0, 0, 0, 0.1);
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__volume--display {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
   color: #fff;
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls .plyr__time--current {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls input[type=range]::-ms-fill-lower {
+  background: #fff;
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__time--current {
   color: #fff;
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls > button {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button {
   color: #fff;
   background: none;
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls > button:hover {
-  color: rgba(255, 255, 255, 0.7);
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button.tab-focus:focus, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio--stopped > button {
   background: none;
 }
-.ttsaudio-plyr .plyr--audio--stopped > button {
-  background: none;
-}
-.ttsaudio-plyr .ttsaudio-plyr--playlist__list {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list {
   border: none;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.ttsaudio-plyr .ttsaudio-plyr--playlist__list li {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
   border-color: rgba(255, 255, 255, 0.3) !important;
   color: rgba(255, 255, 255, 0.7);
 }
-.ttsaudio-plyr .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr .ttsaudio-plyr--playlist__list li.active {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
   color: #fff;
 }
 .ttsaudio-plyr--default {
   background: #fff;
   border: 1px solid #dbe3e8;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-webkit-slider-thumb {
-  background: #00b3ff;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-moz-range-thumb {
-  background: #00b3ff;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
-  background: #00b3ff;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__volume--display {
-  color: #00b3ff;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls .plyr__time--current {
-  color: #4a5464;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls > button {
-  color: #4a5464;
-  background: none;
-}
-.ttsaudio-plyr--default .plyr--audio .plyr__controls > button:hover {
-  color: #fff;
-  background: #00b3ff;
 }
 .ttsaudio-plyr--canva {
   background-image: -webkit-gradient(linear, left top, right top, from(#00C4CC), color-stop(30%, #2599B9), to(#684C96));
@@ -191,6 +171,7 @@
   font-size: 14px;
   line-height: .95;
   color: #565D64;
+  border-top: 1px solid #dbe3e8;
 }
 .ttsaudio-plyr--playlist__list li {
   margin: 0 !important;
@@ -211,23 +192,6 @@
   color: rgba(255, 255, 255, 0.3);
   font-style: oblique;
   font-size: 80%;
-}
-.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list {
-  border-top: 1px solid #dbe3e8;
-  background: none;
-}
-.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li {
-  color: #4a5464;
-  border-color: #ddd !important;
-}
-.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li:last-child {
-  border-bottom: none !important;
-}
-.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li.active {
-  color: #00b3ff;
-}
-.ttsaudio-plyr--default .ttsaudio-plyr--playlist__list li .postdate {
-  color: rgba(0, 0, 0, 0.3);
 }
 .ttsaudio-plyr--playlist .buttons {
   display: none;
