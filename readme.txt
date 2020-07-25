@@ -1,6 +1,6 @@
 === TTS Audio ===
 Contributors: ducnv999
-Donate link: https://gearthemes.com/ttsaudio/
+Donate link: https://paypal.me/ducwp
 Tags: tts, text-to-speech, tts audio, text to speech, text to voice, read text
 Requires at least: 4.7
 Tested up to: 5.4.2
