@@ -21,12 +21,11 @@ Each language come with multiple voices.
 
 TTS Audio Features:
 
-*   Support multiple languages.
-*   Support multiple voices.
-*   Host audio files on your web
-*   Playlist widget
-*   Support multiple skins
-*   Custom skins
+*   Supports multiple languages with multiple voices.
+*   Host audio files on your web and dide true mp3 file path for security
+*   The widget is ready for adding to sidebars.
+*   Supports many skins with game of colors.
+*   Custom skins in Pro version.
 *   Responsive based on Element width
 
 == Screenshots ==

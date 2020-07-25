@@ -82,7 +82,7 @@ function add_custom_meta_box( $post_id ){
 
   //Custom audio
   $html.= '<tr class="more"><th>Custom Audio</th><td>';
-  $html.= '<input id="ttsaudio_custom" type="text" class="large-text" name="'.$tts->prefix.'settings[custom_audio]" value="'.$settings['custom_audio'].'" >';
+  $html.= '<input id="ttsaudio_custom" type="url" class="large-text" name="'.$tts->prefix.'settings[custom_audio]" value="'.$settings['custom_audio'].'" >';
   $html.= '<p class="howto">Ex: http://domain.com/sound.mp3</p></td></tr>';
 
   return $html;

@@ -48,7 +48,7 @@ function theme_options_do_page() {
 
 			<table class="form-table">
 
-				<tr valign="top"><th scope="row"><?php _e( 'Player Skin', 'ttsaudio' ); ?></th>
+				<tr valign="top"><th scope="row"><?php _e( 'Skin', 'ttsaudio' ); ?></th>
 					<td>
 						<select name="plyr_skin" class="regular-text">
 							<?php
