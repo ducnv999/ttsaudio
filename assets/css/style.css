@@ -210,7 +210,7 @@
 .ttsaudio-plyr--playlist__list li .postdate {
   color: rgba(255, 255, 255, 0.3);
   font-style: oblique;
-  font-size: 90%;
+  font-size: 80%;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__list {
   border-top: 1px solid #dbe3e8;

@@ -135,6 +135,10 @@ class TTSAudio_Playlist extends WP_Widget {
 
 		<?php
 		echo $args['after_widget'];
+
+		wp_register_style( 'widget-inline-style', false );
+		wp_enqueue_style( 'widget-inline-style' );
+		wp_add_inline_style( 'widget-inline-style', 'body{color: red}' );
 	}
 
 	/**

@@ -10,8 +10,57 @@ class TTSAudio{
   function __construct(){
     $this->prefix = self::$prefix;
     $this->options = get_option( TTSAUDIO_OPTION );
-    $this->voices = array('de-DE_BirgitV3Voice'=>'Birgit: Standard German of Germany (Standarddeutsch) female voice.','de-DE_DieterV3Voice'=>'Dieter: Standard German of Germany (Standarddeutsch) male voice.','en-GB_KateV3Voice'=>'Kate: British English female voice.','en-US_AllisonV3Voice'=>'Allison: American English female voice.','en-US_LisaV3Voice'=>'Lisa: American English female voice.','en-US_MichaelV3Voice'=>'Michael: American English male voice.','es-ES_EnriqueV3Voice'=>'Enrique: Castilian Spanish (español castellano) male voice.','es-ES_LauraV3Voice'=>'Laura: Castilian Spanish (español castellano) female voice.','es-LA_SofiaV3Voice'=>'Sofia: Latin American Spanish (español latinoamericano) female voice.','es-US_SofiaV3Voice'=>'Sofia: North American Spanish (español norteamericano) female voice.','fr-FR_ReneeV3Voice'=>'Renee: French (français) female voice.','it-IT_FrancescaV3Voice'=>'Francesca: Italian (italiano) female voice.','ja-JP_EmiV3Voice'=>'Emi: Japanese (日本語) female voice.','pt-BR_IsabelaV3Voice'=>'Isabela: Brazilian Portuguese (português brasileiro) female voice.','vi-leminh'=>'Lê Minh (Nam miền Bắc)','vi-banmai'=>'Ban Mai (Nữ miền Bắc)','vi-thuminh'=>'Thu Minh (Nữ miền Bắc)','vi-giahuy'=>'Gia Huy (Nam miền Trung)','vi-myan'=>'Mỹ An (Nữ miền Trung)','vi-lannhi'=>'Lan Nhi (Nữ miền Nam)','vi-linhsan'=>'Linh San (Nữ miền Nam)','vi-male'=>'Cao Chung (Nam miền Bắc)','vi-female'=>'Thu Dung (Nữ miền Bắc)','vi-hatieumai'=>'Hà Tiểu Mai (Nữ miền Nam)'
-    );
+
+    $default_voices = ['en-US_AllisonVoice' => 'American English (en-US): Allison (female, expressive, transformable)',
+    'en-US_AllisonV3Voice' => 'American English (en-US): AllisonV3 (female, enhanced dnn)',
+    'en-US_EmilyV3Voice' => 'American English (en-US): EmilyV3 (female, enhanced dnn)',
+    'en-US_HenryV3Voice' => 'American English (en-US): HenryV3 (male, enhanced dnn)',
+    'en-US_KevinV3Voice' => 'American English (en-US): KevinV3 (male, enhanced dnn)',
+    'en-US_LisaVoice' => 'American English (en-US): Lisa (female, transformable)',
+    'en-US_LisaV3Voice' => 'American English (en-US): LisaV3 (female, enhanced dnn)',
+    'en-US_MichaelVoice' => 'American English (en-US): Michael (male, transformable)',
+    'en-US_MichaelV3Voice' => 'American English (en-US): MichaelV3 (male, enhanced dnn)',
+    'en-US_OliviaV3Voice' => 'American English (en-US): OliviaV3 (female, enhanced dnn)',
+    'ar-AR_OmarVoice' => 'Arabic (ar-AR): Omar (male)',
+    'pt-BR_IsabelaVoice' => 'Brazilian Portuguese (pt-BR): Isabela (female)',
+    'pt-BR_IsabelaV3Voice' => 'Brazilian Portuguese (pt-BR): IsabelaV3 (female, enhanced dnn)',
+    'en-GB_CharlotteV3Voice' => 'British English (en-GB): CharlotteV3 (female, enhanced dnn)',
+    'en-GB_JamesV3Voice' => 'British English (en-GB): JamesV3 (male, enhanced dnn)',
+    'en-GB_KateVoice' => 'British English (en-GB): Kate (female)',
+    'en-GB_KateV3Voice' => 'British English (en-GB): KateV3 (female, enhanced dnn)',
+    'es-ES_EnriqueVoice' => 'Castilian Spanish (es-ES): Enrique (male)',
+    'es-ES_EnriqueV3Voice' => 'Castilian Spanish (es-ES): EnriqueV3 (male, enhanced dnn)',
+    'es-ES_LauraVoice' => 'Castilian Spanish (es-ES): Laura (female)',
+    'es-ES_LauraV3Voice' => 'Castilian Spanish (es-ES): LauraV3 (female, enhanced dnn)',
+    'zh-CN_LiNaVoice' => 'Chinese, Mandarin (zh-CN): LiNa (female)',
+    'zh-CN_WangWeiVoice' => 'Chinese, Mandarin (zh-CN): WangWei (Male)',
+    'zh-CN_ZhangJingVoice' => 'Chinese, Mandarin (zh-CN): ZhangJing (female)',
+    'nl-NL_EmmaVoice' => 'Dutch (nl-NL): Emma (female)',
+    'nl-NL_LiamVoice' => 'Dutch (nl-NL): Liam (male)',
+    'fr-FR_NicolasV3Voice' => 'French (fr-FR): NicolasV3 (male, enhanced dnn)',
+    'fr-FR_ReneeVoice' => 'French (fr-FR): Renee (female)',
+    'fr-FR_ReneeV3Voice' => 'French (fr-FR): ReneeV3 (female, enhanced dnn)',
+    'de-DE_BirgitVoice' => 'German (de-DE): Birgit (female)',
+    'de-DE_BirgitV3Voice' => 'German (de-DE): BirgitV3 (female, enhanced dnn)',
+    'de-DE_DieterVoice' => 'German (de-DE): Dieter (male)',
+    'de-DE_DieterV3Voice' => 'German (de-DE): DieterV3 (male, enhanced dnn)',
+    'de-DE_ErikaV3Voice' => 'German (de-DE): ErikaV3 (female, enhanced dnn)',
+    'it-IT_FrancescaVoice' => 'Italian (it-IT): Francesca (female)',
+    'it-IT_FrancescaV3Voice' => 'Italian (it-IT): FrancescaV3 (female, enhanced dnn)',
+    'ja-JP_EmiVoice' => 'Japanese (ja-JP): Emi (female)',
+    'ja-JP_EmiV3Voice' => 'Japanese (ja-JP): EmiV3 (female, enhanced dnn)',
+    'ko-KR_YoungmiVoice' => 'Korean (ko-KR): Youngmi (female)',
+    'ko-KR_YunaVoice' => 'Korean (ko-KR): Yuna (female)',
+    'es-LA_SofiaVoice' => 'Latin American Spanish (es-LA): Sofia (female)',
+    'es-LA_SofiaV3Voice' => 'Latin American Spanish (es-LA): SofiaV3 (female, enhanced dnn)',
+    'es-US_SofiaVoice' => 'North American Spanish (es-US): Sofia (female)',
+    'es-US_SofiaV3Voice' => 'North American Spanish (es-US): SofiaV3 (female, enhanced dnn)'];
+
+    $vi_voices = ['vi-leminh'=>'Lê Minh (Nam miền Bắc)','vi-banmai'=>'Ban Mai (Nữ miền Bắc)','vi-thuminh'=>'Thu Minh (Nữ miền Bắc)','vi-giahuy'=>'Gia Huy (Nam miền Trung)','vi-myan'=>'Mỹ An (Nữ miền Trung)','vi-lannhi'=>'Lan Nhi (Nữ miền Nam)','vi-linhsan'=>'Linh San (Nữ miền Nam)','vi-male'=>'Cao Chung (Nam miền Bắc)','vi-female'=>'Thu Dung (Nữ miền Bắc)','vi-hatieumai'=>'Hà Tiểu Mai (Nữ miền Nam)'];
+
+    if(!empty($this->options['fpt_api_key'])) $default_voices = $default_voices + $vi_voices;
+
+    $this->voices = $default_voices;
 
     $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
   }
@@ -166,7 +215,7 @@ class TTSAudio{
       if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
       else $mp3_url = add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
 
-      $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTSAudio by GearThemes', 'https://gearthemes.com');
+      $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTS Audio by GearThemes', 'https://gearthemes.com');
       $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';
       $custom_content .= sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
 
@@ -195,7 +244,7 @@ class TTSAudio{
 
   public static function author(){
     $output = '<div class="ttsaudio-plyr--playlist__author">';
-    $output .=  sprintf('<a href="%1$s" title="%2$s" target="_blank">%2$s</a>', 'https://gearthemes.com', 'TTSAudio by GearThemes');;
+    $output .=  sprintf('<a href="%1$s" title="%2$s" target="_blank">%2$s</a>', 'https://gearthemes.com', 'TTS Audio by GearThemes');;
     $output .= '</div>';
     return apply_filters('gt_widget_copyrights', $output);
   }
