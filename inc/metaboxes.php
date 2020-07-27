@@ -123,7 +123,10 @@ function ttsMakeMP3() {
 //Add script
 add_action('admin_head','ajax_script');
 function ajax_script(){
-  global $post;
+  global $post, $pagenow;
+
+  if (!is_admin()) return;
+  if( !in_array( $pagenow, array( 'post.php', 'post-new.php' ) )) return ;
 
   $ajax_nonce = wp_create_nonce( 'ttsaudio_meta_box_'.$post->ID );
 ?>

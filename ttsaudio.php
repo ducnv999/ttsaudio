@@ -26,8 +26,8 @@ function ttsaudio_load_textdomain() {
   load_plugin_textdomain( 'ttsaudio', false, basename( dirname( __FILE__ ) ) . '/languages' );
 }
 
-add_action( 'wp_enqueue_scripts', 'ttsaudio_plugin_scripts' );
-function ttsaudio_plugin_scripts(){
+add_action( 'wp_enqueue_scripts', 'ttsaudio_front_enqueue' );
+function ttsaudio_front_enqueue(){
 	$options = get_option( TTSAUDIO_OPTION );
 	wp_enqueue_style( 'ttsaudio-plyr',  TTSAUDIO_URI . 'assets/css/plyr.css' );
   wp_enqueue_style( 'ttsaudio-style',  TTSAUDIO_URI . 'assets/css/style.css' );
@@ -49,11 +49,11 @@ function ttsaudio_plugin_scripts(){
   wp_add_inline_script( 'ttsaudio-rangetouch', $inline );
 }
 
-function my_enqueue($hook) {
+add_action( 'admin_enqueue_scripts', 'ttsaudio_admin_enqueue' );
+function ttsaudio_admin_enqueue($hook) {
   if( 'toplevel_page_ttsaudio_options' != $hook ) return;
   wp_enqueue_style( 'ttsaudio-options',  TTSAUDIO_URI . 'assets/css/options.css' );
 }
-add_action( 'admin_enqueue_scripts', 'my_enqueue' );
 
 add_filter( 'the_content', array($tts, 'ttsAudioContent') );
 

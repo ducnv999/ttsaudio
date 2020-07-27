@@ -42,41 +42,36 @@
 .ttsaudio-plyr .plyr button {
   background-color: unset;
 }
-.ttsaudio-plyr .plyr--audio .plyr__controls {
+.ttsaudio-plyr .plyr .plyr__controls {
   background: none;
   border: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls {
-  background: none;
-  border: none;
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--buffer {
+  color: rgba(255, 0, 0, 0.7);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer {
-  color: rgba(255, 255, 255, 0.7);
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__volume--display {
+  background-color: rgba(255, 255, 255, 0.3);
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--buffer,
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
-  background-color: rgba(0, 0, 0, 0.1);
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--played,
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__volume--display {
+  color: #f00;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__progress--played,
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__volume--display {
-  color: #fff;
-}
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls input[type=range]::-ms-fill-lower {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls input[type=range]::-ms-fill-lower {
   background: #fff;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls .plyr__time--current {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__time--current {
   color: #fff;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls button {
   color: #fff;
   background: none;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button.tab-focus:focus, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio .plyr__controls button:hover {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls button.tab-focus:focus, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls button:hover {
   background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
 }
-.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr--audio--stopped > button {
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .ttsaudio-plyr--stopped > button {
   background: none;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list {

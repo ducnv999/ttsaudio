@@ -40,7 +40,7 @@
       }
     }
 
-  }
+  } //end single
 
   .plyr[max-width~="360px"] .plyr__volume {
     display: none;
@@ -54,60 +54,46 @@
 
   /* == Skins ==*/
   .plyr{
-    &--audio{
-      .plyr__controls {
-        background: none;
-        border: none;
-      }
+    .plyr__controls {
+      background: none;
+      border: none;
     }
   }
 
   &:not(&--default){
+    .plyr__controls{
+      .plyr__progress--buffer{
+        color: rgba(255,0,0,0.7);
+      }
 
-    .plyr{
+      .plyr__progress--played,
+      .plyr__volume--display{
+        background-color: rgba(255,255,255,0.3);
+      }
 
-      &--audio{
-        .plyr__controls {
-          background: none;
-          border: none;
+      .plyr__progress--played,
+      .plyr__volume--display {
+        color: #f00;
+      }
 
-          .plyr__progress--buffer{
-            color: rgba(255,255,255,0.7);
-          }
+      input[type=range]::-ms-fill-lower {
+        background: #fff
+      }
 
-          .plyr__progress--buffer,
-          .plyr__progress--played,
-          .plyr__volume--display{
-            background-color: rgba(0,0,0,0.1);
-          }
+      .plyr__time--current { color: #fff}
 
-          .plyr__progress--played,
-          .plyr__volume--display {
-            color: #fff;
-          }
-
-          input[type=range]::-ms-fill-lower {
-            background: #fff
-          }
-
-          .plyr__time--current { color: #fff}
-
-          button {
-            color: #fff;
-            background: none;
-            &.tab-focus:focus,
-            &:hover {
-              background-color: rgba(0,0,0,0.1);
-              color: #fff
-            }
-          }
-
+      button {
+        color: #fff;
+        background: none;
+        &.tab-focus:focus,
+        &:hover {
+          background-color: rgba(0,0,0,0.1);
+          color: #fff
         }
+      }
 
-        &--stopped > button{
-          background: none;
-        }
-
+      #{$g}--stopped > button{
+        background: none;
       }
 
     }
