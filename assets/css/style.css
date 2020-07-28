@@ -47,15 +47,15 @@
   border: none;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--buffer {
-  color: rgba(255, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--played,
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__volume--display {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__progress--played,
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .plyr__volume--display {
-  color: #f00;
+  color: #fff;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls input[type=range]::-ms-fill-lower {
   background: #fff;
@@ -68,7 +68,7 @@
   background: none;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls button.tab-focus:focus, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .plyr__controls .ttsaudio-plyr--stopped > button {
@@ -80,10 +80,13 @@
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
   border-color: rgba(255, 255, 255, 0.3) !important;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
   color: #fff;
+}
+.ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li .postdate {
+  color: rgba(255, 255, 255, 0.5);
 }
 .ttsaudio-plyr--default {
   background: #fff;
@@ -159,21 +162,23 @@
 .ttsaudio-plyr--mauve .plyr--audio .plyr__controls input[type=range]:active::-ms-thumb {
   background: #76608a;
 }
+.ttsaudio-plyr .widget .ttsaudio-plyr {
+  background-color: #f00;
+}
 .ttsaudio-plyr--playlist__list {
   list-style: none;
-  margin: 0 !important;
-  padding: 0 20px !important;
+  margin: 0;
+  padding: 0;
   font-size: 14px;
-  line-height: .95;
-  color: #565D64;
   border-top: 1px solid #dbe3e8;
 }
 .ttsaudio-plyr--playlist__list li {
-  margin: 0 !important;
-  padding: 10px 0px !important;
+  margin: 0 20px;
+  padding: 12px 0px !important;
   list-style: none;
   cursor: pointer;
   line-height: 1.6;
+  color: #565D64;
   border: none !important;
   border-bottom: 1px dotted #dbe3e8 !important;
 }
@@ -184,7 +189,7 @@
   color: #3498db;
 }
 .ttsaudio-plyr--playlist__list li .postdate {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.4);
   font-style: oblique;
   font-size: 80%;
 }
@@ -197,7 +202,7 @@
   text-align: center;
 }
 .ttsaudio-plyr--playlist__author a {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   outline: none;
   border: none;
@@ -205,7 +210,7 @@
           box-shadow: none !important;
 }
 .ttsaudio-plyr--playlist__author a:hover, .ttsaudio-plyr--playlist__author a:focus, .ttsaudio-plyr--playlist__author a:active {
-  color: #fff !important;
+  color: #fff;
   text-decoration: none;
   outline: none;
   border: none;
@@ -213,13 +218,13 @@
           box-shadow: none;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author {
-  border-top: 1px solid #dbe3e8 !important;
+  border-top: 1px solid #dbe3e8;
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.5);
 }
 .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:hover, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:focus, .ttsaudio-plyr--default .ttsaudio-plyr--playlist__author a:active {
-  color: rgba(0, 0, 0, 0.7) !important;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 /*# sourceMappingURL=style.css.map */

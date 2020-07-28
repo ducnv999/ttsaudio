@@ -10,7 +10,7 @@ add_action( 'save_post', 'ttsaudio_save' );
 function ttsaudio_save( $post_id ){
   $prefix = TTSAudio::$prefix;
 
-  if (wp_verify_nonce($_POST['_inline_edit'], 'inlineeditnonce')) return;
+  if (wp_verify_nonce( sanitize_text_field( $_POST['_inline_edit'] ), 'inlineeditnonce')) return;
 
   $status = sanitize_text_field( $_POST[$prefix . 'status'] );
   update_post_meta( $post_id, $prefix . 'status' , $status );
@@ -23,7 +23,7 @@ function ttsaudio_save( $post_id ){
   if($status=='delete') {
     $tts = new TTSAudio;
 
-    unlink($tts->mp3_dir.'/'.$tts_settings['mp3']);
+    unlink($tts->ttsaudio_upload_dir.'/'.$tts_settings['mp3']);
     delete_post_meta($post_id, $prefix . 'settings');
   }
 
@@ -109,7 +109,7 @@ function ttsMakeMP3() {
   $custom_audio = filter_input(INPUT_POST, "custom_audio", FILTER_SANITIZE_STRING);
 
   $meta_settings = get_post_meta( $post_id, $tts->prefix . 'settings', true );
-  unlink($tts->mp3_dir.'/'.$meta_settings['mp3']);
+  unlink($tts->ttsaudio_upload_dir.'/'.$meta_settings['mp3']);
 
   $filename = $tts->ttsDownloadMP3($text, $voice);
   update_post_meta( $post_id, $tts->prefix.'status', 'enable');

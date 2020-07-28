@@ -36,11 +36,12 @@ function ttsaudio_options_do_page(){
 	$options = get_option( TTSAUDIO_OPTION );
 	$tts = new TTSAudio;
 
-	if (!empty($_GET['ttsaudio_updated'])) {
+  $ttsaudio_updated_status = filter_input(INPUT_GET, "ttsaudio_updated", FILTER_SANITIZE_STRING);
+	if (!empty( $ttsaudio_updated_status )) {
 
-		if( $_GET['ttsaudio_updated'] == 'true' )
+		if( $ttsaudio_updated_status === 'true' )
 			$_SESSION['msg'] = '<div class="notice notice-success is-dismissible"><p><strong>'.__('Options saved','ttsaudio').'</strong></p></div>';
-		else $_SESSION['msg'] = '<div class="notice notice-error settings-error is-dismissible"><p><strong>'.__('Options could not be saved','ttsaudio').'</strong></p></div>';
+		else $_SESSION['msg'] = '<div class="notice notice-warning is-dismissible"><p><strong>'.__('Options could not be saved or not change','ttsaudio').'</strong></p></div>';
 
 		echo '<script>window.location.replace("'.$_SERVER['HTTP_REFERER'].'");</script>';
 		exit;

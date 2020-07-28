@@ -4,8 +4,7 @@ class TTSAudio{
   public static $prefix = '_ttsaudio_';
   public $options;
   public $voices;
-  public $mp3_dir;
-  private $user_agent = 'Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0';
+  public $ttsaudio_upload_dir;
 
   function __construct(){
     $this->prefix = self::$prefix;
@@ -62,7 +61,7 @@ class TTSAudio{
 
     $this->voices = $default_voices;
 
-    $this->mp3_dir = wp_upload_dir()['basedir'].'/ttsaudio';
+    $this->ttsaudio_upload_dir = wp_upload_dir()['basedir'].'/ttsaudio';
   }
 
   public function PlyrSkin(){
@@ -77,9 +76,20 @@ class TTSAudio{
     return $skins;
 	}
 
+  public function filesystem(){
+      global $wp_filesystem;
+
+      if ( is_null( $wp_filesystem ) ) {
+          require_once ABSPATH . '/wp-admin/includes/file.php';
+          WP_Filesystem();
+      }
+
+      return $wp_filesystem;
+  }
+
   public function ttsDownloadMP3( $text, $voice ){
 
-    if(!file_exists( $this->mp3_dir )) wp_mkdir_p( $this->mp3_dir );
+    if(!file_exists( $this->ttsaudio_upload_dir )) wp_mkdir_p( $this->ttsaudio_upload_dir );
 
     if( substr($voice, 0, 2) == 'vi' ){
       $voice = substr($voice, 3);
@@ -88,19 +98,14 @@ class TTSAudio{
 
     }else{
 
-      $url = $this->ttsWatson($text, $voice);
+      $url = str_replace(" ","%20", $this->ttsWatson($text, $voice));
       $filename = $voice . '-' . md5($text).'.mp3';
     }
 
-    $filepath = $this->mp3_dir . '/' . $filename;
-    $fp = fopen($filepath, 'w+');
-    $ch = curl_init(str_replace(" ","%20", $url));
-    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-    curl_setopt($ch, CURLOPT_FILE, $fp);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    $server_output = curl_exec($ch);
-    curl_close($ch);
-    fclose($fp);
+    $body = wp_remote_retrieve_body( wp_remote_get( esc_url_raw($url) ) );
+    $filepath = $this->ttsaudio_upload_dir . '/' . $filename;
+    $wp_filesystem = $this->filesystem();
+    $wp_filesystem->put_contents($filepath, $body);
 
     return $filename;
     exit;
@@ -115,52 +120,35 @@ class TTSAudio{
     return $url;
   }
 
-  private function ttsFPT( $text, $voice = 'female', $speed = 0){
+  public function ttsFPT( $text, $voice = 'female', $speed = 0){
 
     $headers = [
-			'api-key: '.$this->options['fpt_api_key'],
-			'voice: '.$voice,
-			'speed: '.$speed,
-		];
+      'api-key' => $this->options['fpt_api_key'],
+      'voice' => $voice,
+      'speed' => $speed
+    ];
 
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.fpt.ai/hmi/tts/v5",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => $text,
-      CURLOPT_HTTPHEADER => array(
-        "api-key: ".$this->options['fpt_api_key'],
-        "voice: ".$voice,
-        "Content-Type: text/plain"
-      ),
-    ));
+    $response = wp_remote_post( esc_url_raw('https://api.fpt.ai/hmi/tts/v5'), ['body' => $text, 'headers' => $headers] );
+    $api_response = json_decode( wp_remote_retrieve_body( $response ), true );
 
-    $response = curl_exec($curl);
-    $json = json_decode( $response );
-
-    return ttsCheckUrl($json->async);
+    return ttsCheckUrl($api_response['async']);
   }
 
   public function ttsMP3Output( $post_id ){
-    $settings = get_post_meta( $post_id, $this->prefix.'settings', true );
-    if (!isset($settings['mp3']) || FALSE === get_post_status( $post_id ) )  exit;
 
-    $filepath = $this->mp3_dir .'/' . $settings['mp3'];
-    if(file_exists($filepath)) $this->smartReadFile($filepath, $settings['mp3']);
-    else echo 'File Does Not Exist!';
-    exit;
-    return $mp3_url;
+    $settings = get_post_meta( $post_id, $this->prefix.'settings', true );
+    if (empty($settings['mp3']) || FALSE === get_post_status( $post_id ) )  return;
+
+    $filepath = $this->ttsaudio_upload_dir .'/' . $settings['mp3'];
+    if(!file_exists($filepath)) $filepath = TTSAUDIO_DIR . 'assets/the_audio_file_does_not_exist.mp3';
+    $this->smartReadFile($filepath, $settings['mp3']);
+
+    return;
+
   }
 
-
   private function smartReadFile($location, $filename, $mimeType = 'audio/mpeg') {
-    if (!file_exists($location)) exit;
+    if (!file_exists($location)) return;
 
     $size	= filesize($location);
     $time	= date('r', filemtime($location));
@@ -227,10 +215,11 @@ class TTSAudio{
 
   public function template_include($original_template) {
     $ttsaudio = get_query_var( 'ttsaudio' );
+
     if( $ttsaudio )
     {
       $this->ttsMP3Output( $ttsaudio );
-      die;
+      exit;
     } else return $original_template;
   }
 
