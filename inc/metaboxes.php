@@ -3,11 +3,11 @@
 //Add default meta box
 add_action('add_meta_boxes', 'add_custom_meta_box_post');
 function add_custom_meta_box_post($post) {
-  add_meta_box('sections_meta_box', 'TTS Audio Options', 'show_custom_meta_box', ['post', 'page']);
+  add_meta_box('sections_meta_box', 'TTS Audio Options', 'grts_metabox_html', ['post', 'page']);
 }
 
-add_action( 'save_post', 'ttsaudio_save' );
-function ttsaudio_save( $post_id ){
+add_action( 'save_post', 'grts_ttsaudio_metabox_save' );
+function grts_ttsaudio_metabox_save( $post_id ){
 
   $prefix = TTSAudio::$prefix;
 
@@ -84,7 +84,7 @@ function ttsaudio_save( $post_id ){
 
 }
 
-function show_custom_meta_box( $post ) {
+function grts_metabox_html( $post ) {
   $prefix = TTSAudio::$prefix;
 
   $status = get_post_meta( $post->ID, $prefix . 'status', true );
@@ -101,7 +101,7 @@ function show_custom_meta_box( $post ) {
   }
   $html .= '</select></td></tr>';
 
-  if($status == 'enable') $html .= add_custom_meta_box( $post->ID );
+  if($status == 'enable') $html .= grts_metabox_html_add_fields( $post->ID );
 
   $html .= '</tbody></table>';
 
@@ -111,7 +111,7 @@ function show_custom_meta_box( $post ) {
 }
 
 //Our custom meta box will be loaded on ajax
-function add_custom_meta_box( $post_id ){
+function grts_metabox_html_add_fields( $post_id ){
 
   if ( $error = get_transient( "my_save_post_errors_{$post->ID}" ) ) { ?>
     <div class="info hidden">
@@ -159,7 +159,7 @@ add_action('wp_ajax_grts_ttsaudio_add_form_fields', 'grts_ttsaudio_add_form_fiel
 function grts_ttsaudio_add_form_fields() {
   $post_id = filter_input(INPUT_POST, "post_id", FILTER_SANITIZE_NUMBER_INT);
   check_ajax_referer('ttsaudio_meta_box_'.$post_id, 'security_'.$post_id);
-  echo add_custom_meta_box($post_id);
+  echo grts_metabox_html_add_fields($post_id);
   exit;
 }
 
@@ -179,7 +179,7 @@ function grts_ttsaudio_create_mp3() {
 
   $filename = $tts->ttsDownloadMP3($text, $voice);
   update_post_meta( $post_id, $tts->prefix.'status', 'enable');
-  $settings = array('voice' => $voice, 'text' => $text,'mp3' => $filename, 'custom_audio' =>$custom_audio);
+  $settings = array( 'voice' => $voice, 'text' => $text, 'mp3' => $filename, 'custom_audio' => $custom_audio);
   update_post_meta( $post_id, $tts->prefix.'settings', $settings);
 
   echo $filename;
@@ -199,27 +199,35 @@ function grts_ttsaudio_ajax_script(){
   <script>
   jQuery(document).ready(function ($) {
 
+    //Status
+    $('#<?php echo TTSAudio::$prefix;?>status').change(function () {
+      var status = $(this).val();
+      $.post(ajaxurl, {action: 'grts_ttsaudio_add_form_fields', post_id: <?php echo $post->ID;?>, security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>'}, function (data) {
+
+        if(status  == 'enable') $('table#ttsaudio_form').append(data);
+        else $('table#ttsaudio_form').find('tr.more').hide();
+
+      });
+    });
+
+    //Calculate characters length for textarea
     $(document).on('change keyup paste', '#ttsaudio_text', function (e) {
       var currentVal = $(this).val().length + ' characters';
       $('#textarea_length').text(currentVal);
     });
 
-    $('#<?php echo TTSAudio::$prefix;?>status').change(function () {
-      var status = $(this).val();
-      $.post(ajaxurl, {action: 'grts_ttsaudio_add_form_fields', post_id: <?php echo $post->ID;?>, security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>'}, function (data) {
-        if(status  == 'enable') $('table#ttsaudio_form').append(data);
-        else $('table#ttsaudio_form').find('tr.more').hide();
-      });
-    });
-
+    //Create MP3 file
     $(document).on('click', '#CreateAudioBtn', function (e) {
+
       if($('#ttsaudio_text').val() == '') {
         alert('<?php _e('Please enter text!','ttsaudio');?>');
         return false;
       }
+
       $('#res_text').empty();
       var spinner = 	$('#spinner');
       spinner.css('visibility', 'visible');
+
       $.post(ajaxurl, {action: 'grts_ttsaudio_create_mp3', post_id: <?php echo $post->ID;?>, text: $('#ttsaudio_text').val(), voice: $('#ttsaudio_voice').val(), custom_audio: $('#ttsaudio_custom').val(), security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>' }, function (data) {
         spinner.css('visibility', 'hidden');
         $('#ttsaudio_mp3').val(data);

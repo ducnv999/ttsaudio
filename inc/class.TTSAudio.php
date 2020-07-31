@@ -1,6 +1,6 @@
 <?php
 if ( !class_exists( 'TTSAudio' ) ) {
-  
+
   class TTSAudio{
 
     public static $prefix = TTSAUDIO_PREFIX;
@@ -9,7 +9,7 @@ if ( !class_exists( 'TTSAudio' ) ) {
     public $ttsaudio_upload_dir;
 
     function __construct(){
-      $this->prefix = self::$prefix;
+      // $this->prefix = self::$prefix;
       $this->options = get_option( TTSAUDIO_OPTION );
 
       $default_voices = ['en-US_AllisonVoice' => 'American English (en-US): Allison (female, expressive, transformable)',
@@ -198,7 +198,7 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
     public function ttsAudioContent( $content ) {
 
-      $status  = get_post_meta( get_the_ID(), $this->prefix.'status', true );
+      $status  = get_post_meta( get_the_ID(), self::$prefix.'status', true );
       if(is_singular() && $status == 'enable') {
         $options = get_option( TTSAUDIO_OPTION );
         $settings  = get_post_meta( get_the_ID(), $this->prefix.'settings', true );

@@ -23,7 +23,7 @@ require_once( TTSAUDIO_DIR . 'inc/options.php');
 require_once( TTSAUDIO_DIR . 'inc/opt.php');
 require_once( TTSAUDIO_DIR . 'inc/meta.php');
 require_once( TTSAUDIO_DIR . 'inc/class.Widgets.php');
-require_once( TTSAUDIO_DIR . 'inc/metaboxes.php');
+//require_once( TTSAUDIO_DIR . 'inc/metaboxes.php');
 
 $tts = new TTSAudio;
 
