@@ -6,6 +6,7 @@
 
 class TTSAudio_Options {
 	private $ttsaudio_options;
+	private $tts;
 
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'ttsaudio_add_plugin_page' ) );
@@ -24,7 +25,9 @@ class TTSAudio_Options {
 	}
 
 	public function ttsaudio_create_admin_page() {
-		$this->ttsaudio_options = get_option( 'ttsaudio_option_name' ); ?>
+		$this->ttsaudio_options = get_option( 'ttsaudio_options' );
+		$this->tts = new TTSAudio;
+		?>
 
 		<div class="wrap">
 			<h2>TTSAudio</h2>
@@ -44,7 +47,7 @@ class TTSAudio_Options {
 	public function ttsaudio_page_init() {
 		register_setting(
 			'ttsaudio_option_group', // option_group
-			'ttsaudio_option_name', // option_name
+			'ttsaudio_options', // option_name
 			array( $this, 'ttsaudio_sanitize' ) // sanitize_callback
 		);
 
@@ -56,25 +59,25 @@ class TTSAudio_Options {
 		);
 
 		add_settings_field(
-			'skin_0', // id
+			'plyr_skin', // id
 			'Skin', // title
-			array( $this, 'skin_0_callback' ), // callback
+			array( $this, 'plyr_skin_callback' ), // callback
 			'ttsaudio-admin', // page
 			'ttsaudio_setting_section' // section
 		);
 
 		add_settings_field(
-			'default_voice_1', // id
+			'default_voice', // id
 			'Default Voice', // title
-			array( $this, 'default_voice_1_callback' ), // callback
+			array( $this, 'default_voice_callback' ), // callback
 			'ttsaudio-admin', // page
 			'ttsaudio_setting_section' // section
 		);
 
 		add_settings_field(
-			'fpt_api_key_2', // id
+			'fpt_api_key', // id
 			'FPT API Key', // title
-			array( $this, 'fpt_api_key_2_callback' ), // callback
+			array( $this, 'fpt_api_key_callback' ), // callback
 			'ttsaudio-admin', // page
 			'ttsaudio_setting_section' // section
 		);
@@ -83,16 +86,16 @@ class TTSAudio_Options {
 	public function ttsaudio_sanitize($input) {
 
 		$sanitary_values = array();
-		if ( isset( $input['skin_0'] ) ) {
-			$sanitary_values['skin_0'] = $input['skin_0'];
+		if ( isset( $input['plyr_skin'] ) ) {
+			$sanitary_values['plyr_skin'] = $input['plyr_skin'];
 		}
 
-		if ( isset( $input['default_voice_1'] ) ) {
-			$sanitary_values['default_voice_1'] = $input['default_voice_1'];
+		if ( isset( $input['default_voice'] ) ) {
+			$sanitary_values['default_voice'] = $input['default_voice'];
 		}
 
-		if ( isset( $input['fpt_api_key_2'] ) ) {
-			$sanitary_values['fpt_api_key_2'] = sanitize_text_field( $input['fpt_api_key_2'] );
+		if ( isset( $input['fpt_api_key'] ) ) {
+			$sanitary_values['fpt_api_key'] = sanitize_text_field( $input['fpt_api_key'] );
 		}
 
 		return apply_filters('ttsaudio_sanitize', $input, $sanitary_values);
@@ -101,31 +104,35 @@ class TTSAudio_Options {
 	}
 
 	public function ttsaudio_section_info() {
-		print_r($this->ttsaudio_options);
+
 	}
 
-	public function skin_0_callback() {
-		?> <select name="ttsaudio_option_name[skin_0]" id="skin_0">
-			<?php $selected = (isset( $this->ttsaudio_options['skin_0'] ) && $this->ttsaudio_options['skin_0'] === 'skin_1') ? 'selected' : '' ; ?>
-			<option value="skin_1" <?php echo $selected; ?>>Skin 1</option>
-			<?php $selected = (isset( $this->ttsaudio_options['skin_0'] ) && $this->ttsaudio_options['skin_0'] === 'skin_2') ? 'selected' : '' ; ?>
-			<option value="skin_2" <?php echo $selected; ?>>Skin 2</option>
+	public function plyr_skin_callback() {?>
+
+		<select name="ttsaudio_options[plyr_skin]" id="plyr_skin">
+			<?php
+			foreach ( $this->tts->PlyrSkin() as $key => $value ) {?>
+				<option value="<?php esc_attr_e( $key );?>" <?php selected( $this->ttsaudio_options['plyr_skin'], esc_attr( $key ) ); ?>><?php esc_html_e( $value );?></option>
+			<?php }?>
+		</select>
+
+	<?php
+	}
+
+	public function default_voice_callback() {
+		?> <select name="ttsaudio_options[default_voice]" id="default_voice">
+			<?php
+			foreach ( $this->tts->voices as $key => $value ) {?>
+				<option value="<?php esc_attr_e( $key );?>" <?php selected( $this->ttsaudio_options['default_voice'], esc_attr( $key ) ); ?>><?php esc_html_e( $value );?></option>
+			<?php }?>
+
 		</select> <?php
 	}
 
-	public function default_voice_1_callback() {
-		?> <select name="ttsaudio_option_name[default_voice_1]" id="default_voice_1">
-			<?php $selected = (isset( $this->ttsaudio_options['default_voice_1'] ) && $this->ttsaudio_options['default_voice_1'] === 'voice_1') ? 'selected' : '' ; ?>
-			<option value="voice_1" <?php echo $selected; ?>>Voice 1</option>
-			<?php $selected = (isset( $this->ttsaudio_options['default_voice_1'] ) && $this->ttsaudio_options['default_voice_1'] === 'voice_21') ? 'selected' : '' ; ?>
-			<option value="voice_21" <?php echo $selected; ?>>Voice 2</option>
-		</select> <?php
-	}
-
-	public function fpt_api_key_2_callback() {
+	public function fpt_api_key_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="ttsaudio_option_name[fpt_api_key_2]" id="fpt_api_key_2" value="%s">',
-			isset( $this->ttsaudio_options['fpt_api_key_2'] ) ? esc_attr( $this->ttsaudio_options['fpt_api_key_2']) : ''
+			'<input class="regular-text" type="text" name="ttsaudio_options[fpt_api_key]" id="fpt_api_key" value="%s">',
+			isset( $this->ttsaudio_options['fpt_api_key'] ) ? esc_attr( $this->ttsaudio_options['fpt_api_key']) : ''
 		);
 	}
 
@@ -135,8 +142,8 @@ if ( is_admin() )
 
 /*
  * Retrieve this value with:
- * $ttsaudio_options = get_option( 'ttsaudio_option_name' ); // Array of All Options
- * $skin_0 = $ttsaudio_options['skin_0']; // Skin
- * $default_voice_1 = $ttsaudio_options['default_voice_1']; // Default Voice
- * $fpt_api_key_2 = $ttsaudio_options['fpt_api_key_2']; // FPT API Key
+ * $ttsaudio_options = get_option( 'ttsaudio_options' ); // Array of All Options
+ * $plyr_skin = $ttsaudio_options['plyr_skin']; // Skin
+ * $default_voice = $ttsaudio_options['default_voice']; // Default Voice
+ * $fpt_api_key_2 = $ttsaudio_options['fpt_api_key']; // FPT API Key
  */
