@@ -10,6 +10,9 @@ Text Domain: ttsaudio
 Domain Path: /languages
 */
 
+//grts_ttsaudio_
+//GRTS_TTSAUDIO_
+
 define('TTSAUDIO_PREFIX', '_ttsaudio_' );
 define('TTSAUDIO_OPTION', '_ttsaudio_options' );
 define('TTSAUDIO_URI', plugin_dir_url( __FILE__ ));

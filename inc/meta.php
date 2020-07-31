@@ -37,25 +37,41 @@ function ttsaudio_option_add_meta_box() {
 add_action( 'add_meta_boxes', 'ttsaudio_option_add_meta_box' );
 
 function ttsaudio_option_html( $post) {
+
+	$options = get_option( TTSAUDIO_OPTION );
+  $tts = new TTSAudio;
+
 	wp_nonce_field( '_ttsaudio_option_nonce', 'ttsaudio_option_nonce' ); ?>
-
-	<p>
-		<label for="ttsaudio_option_tts_audio"><?php _e( 'TTS Audio', 'ttsaudio_option' ); ?></label><br>
-		<select name="ttsaudio_option_tts_audio" id="ttsaudio_option_tts_audio">
-			<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_tts_audio' ) === 'enable' ) ? 'selected' : '' ?>>enable</option>
-			<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_tts_audio' ) === 'disable' ) ? 'selected' : '' ?>>disable</option>
+	<table id="ttsaudio_form" class="form-table"><tbody>
+	<tr>
+		<th><label for="ttsaudio_option_tts_audio"><?php _e( 'TTS Audio', 'ttsaudio_option' ); ?></label></th>
+		<td>
+			<select name="ttsaudio_option_tts_audio" id="ttsaudio_option_tts_audio">
+				<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_tts_audio' ) === 'enable' ) ? 'selected' : '' ?>>Enable</option>
+				<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_tts_audio' ) === 'disable' ) ? 'selected' : '' ?>>Disable</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th><label for="ttsaudio_option_voice"><?php _e( 'Voice', 'ttsaudio_option' ); ?></label></th>
+		<td><select name="ttsaudio_option_voice" id="ttsaudio_option_voice">
+			<?php foreach ($tts->voices as $key => $value) {?>
+			<option value="<?php esc_attr_e($key);?>"><?php esc_html_e($value);?></option>
+			<?php } ?>
 		</select>
-	</p>	<p>
-		<label for="ttsaudio_option_voices"><?php _e( 'Voices', 'ttsaudio_option' ); ?></label><br>
-		<select name="ttsaudio_option_voices" id="ttsaudio_option_voices">
-			<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_voices' ) === 'female' ) ? 'selected' : '' ?>>female</option>
-			<option <?php echo (ttsaudio_option_get_meta( 'ttsaudio_option_voices' ) === 'male' ) ? 'selected' : '' ?>>male</option>
-		</select>
-	</p>	<p>
-		<label for="ttsaudio_option_text_to_speech_"><?php _e( 'Text (to speech)', 'ttsaudio_option' ); ?></label><br>
-		<textarea name="ttsaudio_option_text_to_speech_" id="ttsaudio_option_text_to_speech_" ><?php echo ttsaudio_option_get_meta( 'ttsaudio_option_text_to_speech_' ); ?></textarea>
+		<p>You can set Default Voice in <a href="<?php echo menu_page_url('ttsaudio', 0);?>" target="_blank">TTS Audio Options</a></p>
+	</td>
+	</tr>
+	<tr>
+		<th><label for="ttsaudio_option_text_to_speech_"><?php _e( 'Text (to speech)', 'ttsaudio_option' ); ?></label></th>
+		<td>
+			<textarea class="large-text" rows="10" name="ttsaudio_option_text_to_speech_" id="ttsaudio_option_text_to_speech_" ><?php echo ttsaudio_option_get_meta( 'ttsaudio_option_text_to_speech_' ); ?></textarea>
+			<p>Separate paragraph with double blank lines.</p>
+		</td>
 
-	</p><?php
+	</tr>
+	</tbody></table>
+	<?php
 }
 
 function ttsaudio_option_save( $post_id ) {
@@ -65,8 +81,8 @@ function ttsaudio_option_save( $post_id ) {
 
 	if ( isset( $_POST['ttsaudio_option_tts_audio'] ) )
 		update_post_meta( $post_id, 'ttsaudio_option_tts_audio', esc_attr( $_POST['ttsaudio_option_tts_audio'] ) );
-	if ( isset( $_POST['ttsaudio_option_voices'] ) )
-		update_post_meta( $post_id, 'ttsaudio_option_voices', esc_attr( $_POST['ttsaudio_option_voices'] ) );
+	if ( isset( $_POST['ttsaudio_option_voice'] ) )
+		update_post_meta( $post_id, 'ttsaudio_option_voice', esc_attr( $_POST['ttsaudio_option_voice'] ) );
 	if ( isset( $_POST['ttsaudio_option_text_to_speech_'] ) )
 		update_post_meta( $post_id, 'ttsaudio_option_text_to_speech_', esc_attr( $_POST['ttsaudio_option_text_to_speech_'] ) );
 }
@@ -74,6 +90,6 @@ add_action( 'save_post', 'ttsaudio_option_save' );
 
 /*
 	Usage: ttsaudio_option_get_meta( 'ttsaudio_option_tts_audio' )
-	Usage: ttsaudio_option_get_meta( 'ttsaudio_option_voices' )
+	Usage: ttsaudio_option_get_meta( 'ttsaudio_option_voice' )
 	Usage: ttsaudio_option_get_meta( 'ttsaudio_option_text_to_speech_' )
 */

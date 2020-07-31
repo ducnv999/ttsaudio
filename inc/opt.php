@@ -87,11 +87,11 @@ class TTSAudio_Options {
 
 		$sanitary_values = array();
 		if ( isset( $input['plyr_skin'] ) ) {
-			$sanitary_values['plyr_skin'] = $input['plyr_skin'];
+			$sanitary_values['plyr_skin'] = sanitize_text_field ( $input['plyr_skin'] );
 		}
 
 		if ( isset( $input['default_voice'] ) ) {
-			$sanitary_values['default_voice'] = $input['default_voice'];
+			$sanitary_values['default_voice'] = sanitize_text_field( $input['default_voice'] );
 		}
 
 		if ( isset( $input['fpt_api_key'] ) ) {

@@ -8,19 +8,74 @@ function add_custom_meta_box_post($post) {
 
 add_action( 'save_post', 'ttsaudio_save' );
 function ttsaudio_save( $post_id ){
+
   $prefix = TTSAudio::$prefix;
+
+  // Bail out if we fail a security check.
+  if ( !isset( $_POST['ttsaudio_metabox_nonce'] )
+       || !wp_verify_nonce( $_POST['ttsaudio_metabox_nonce'], '_ttsaudio_metabox_nonce' )
+       || !isset( $_POST[$prefix . 'status'] )
+       || !isset( $_POST[$prefix . 'settings'] ) ) {
+    set_transient( "my_save_post_errors_{$post_id}", "Security Check Failed", 10 );
+
+    return;
+  }
+
+  // Bail out if running an autosave, ajax, cron or revision.
+  if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+    set_transient( "my_save_post_errors_{$post_id}", "Autosave", 10 );
+
+    return;
+  }
+  if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+    set_transient( "my_save_post_errors_{$post_id}", "Ajax", 10 );
+
+    return;
+  }
+  /*    if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+        set_transient("my_save_post_errors_{$post_id}", "Cron", 10);
+        return;
+      }*/
+  if ( wp_is_post_revision( $post_id ) ) {
+    set_transient( "my_save_post_errors_{$post_id}", "revision", 10 );
+
+    return;
+  }
+
+  // Bail if this is not the correct post type.
+  if ( isset( $post->post_type )
+       && 'post' !== $post->post_type
+       && 'page' !== $post->post_type ) {
+    set_transient( "my_save_post_errors_{$post_id}", "Incorrect Post Type", 10 );
+
+    return;
+  }
+
+  // Bail out if user is not authorized
+  if ( !current_user_can( 'edit_post', $post_id ) ) {
+    set_transient( "my_save_post_errors_{$post_id}", "UnAuthorized User", 10 );
+
+    return;
+  }
 
   if (wp_verify_nonce( sanitize_text_field( $_POST['_inline_edit'] ), 'inlineeditnonce')) return;
 
+
+  //sanitize & update
   $status = sanitize_text_field( $_POST[$prefix . 'status'] );
   update_post_meta( $post_id, $prefix . 'status' , $status );
 
-  $tts_settings = $_POST[$prefix . 'settings'];
-  $tts_settings['text'] = sanitize_textarea_field($tts_settings['text']);
+  $tts_settings = $_POST[$prefix . 'settings']; // array
+  $sanitized_data = array();
 
-  update_post_meta( $post_id, $prefix . 'settings' , $tts_settings );
+  $sanitized_data['voice'] = sanitize_text_field($tts_settings['voice']);
+  $sanitized_data['text'] = sanitize_textarea_field($tts_settings['text']);
+  $sanitized_data['mp3'] = sanitize_text_field($tts_settings['mp3']);
+  $sanitized_data['custom_audio'] = esc_url_raw($tts_settings['custom_audio']);
 
-  if($status=='delete') {
+  update_post_meta( $post_id, $prefix . 'settings' , $sanitized_data );
+
+  if($status == 'delete') {
     $tts = new TTSAudio;
 
     unlink($tts->ttsaudio_upload_dir.'/'.$tts_settings['mp3']);
@@ -50,11 +105,22 @@ function show_custom_meta_box( $post ) {
 
   $html .= '</tbody></table>';
 
+  wp_nonce_field( '_ttsaudio_metabox_nonce', 'ttsaudio_metabox_nonce' );
+
   echo $html;
 }
 
 //Our custom meta box will be loaded on ajax
 function add_custom_meta_box( $post_id ){
+
+  if ( $error = get_transient( "my_save_post_errors_{$post->ID}" ) ) { ?>
+    <div class="info hidden">
+    <p><?php echo $error; ?></p>
+    </div><?php
+
+    delete_transient( "my_save_post_errors_{$post->ID}" );
+  }
+
   $options = get_option( TTSAUDIO_OPTION );
   $tts = new TTSAudio;
 
@@ -89,16 +155,16 @@ function add_custom_meta_box( $post_id ){
 }
 
 //Call ajax
-add_action('wp_ajax_addStructureBox', 'addStructureBox');
-function addStructureBox() {
+add_action('wp_ajax_grts_ttsaudio_add_form_fields', 'grts_ttsaudio_add_form_fields');
+function grts_ttsaudio_add_form_fields() {
   $post_id = filter_input(INPUT_POST, "post_id", FILTER_SANITIZE_NUMBER_INT);
   check_ajax_referer('ttsaudio_meta_box_'.$post_id, 'security_'.$post_id);
   echo add_custom_meta_box($post_id);
   exit;
 }
 
-add_action('wp_ajax_ttsMakeMP3', 'ttsMakeMP3');
-function ttsMakeMP3() {
+add_action('wp_ajax_grts_ttsaudio_create_mp3', 'grts_ttsaudio_create_mp3');
+function grts_ttsaudio_create_mp3() {
   $tts = new TTSAudio;
 
   $post_id = filter_input(INPUT_POST, "post_id", FILTER_SANITIZE_NUMBER_INT);
@@ -121,8 +187,8 @@ function ttsMakeMP3() {
 }
 
 //Add script
-add_action('admin_head','ajax_script');
-function ajax_script(){
+add_action('admin_head','grts_ttsaudio_ajax_script');
+function grts_ttsaudio_ajax_script(){
   global $post, $pagenow;
 
   if (!is_admin()) return;
@@ -140,7 +206,7 @@ function ajax_script(){
 
     $('#<?php echo TTSAudio::$prefix;?>status').change(function () {
       var status = $(this).val();
-      $.post(ajaxurl, {action: 'addStructureBox', post_id: <?php echo $post->ID;?>, security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>'}, function (data) {
+      $.post(ajaxurl, {action: 'grts_ttsaudio_add_form_fields', post_id: <?php echo $post->ID;?>, security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>'}, function (data) {
         if(status  == 'enable') $('table#ttsaudio_form').append(data);
         else $('table#ttsaudio_form').find('tr.more').hide();
       });
@@ -154,7 +220,7 @@ function ajax_script(){
       $('#res_text').empty();
       var spinner = 	$('#spinner');
       spinner.css('visibility', 'visible');
-      $.post(ajaxurl, {action: 'ttsMakeMP3', post_id: <?php echo $post->ID;?>, text: $('#ttsaudio_text').val(), voice: $('#ttsaudio_voice').val(), custom_audio: $('#ttsaudio_custom').val(), security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>' }, function (data) {
+      $.post(ajaxurl, {action: 'grts_ttsaudio_create_mp3', post_id: <?php echo $post->ID;?>, text: $('#ttsaudio_text').val(), voice: $('#ttsaudio_voice').val(), custom_audio: $('#ttsaudio_custom').val(), security_<?php echo $post->ID;?>: '<?php echo $ajax_nonce;?>' }, function (data) {
         spinner.css('visibility', 'hidden');
         $('#ttsaudio_mp3').val(data);
         $('#res_text').html('<font color="green"><b><?php _e('Done!','ttsaudio');?></b></font>');
