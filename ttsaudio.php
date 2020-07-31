@@ -10,12 +10,15 @@ Text Domain: ttsaudio
 Domain Path: /languages
 */
 
+define('TTSAUDIO_PREFIX', '_ttsaudio_' );
 define('TTSAUDIO_OPTION', '_ttsaudio_options' );
 define('TTSAUDIO_URI', plugin_dir_url( __FILE__ ));
 define('TTSAUDIO_DIR', plugin_dir_path( __FILE__ ));
 
 require_once( TTSAUDIO_DIR . 'inc/class.TTSAudio.php');
 require_once( TTSAUDIO_DIR . 'inc/options.php');
+require_once( TTSAUDIO_DIR . 'inc/opt.php');
+require_once( TTSAUDIO_DIR . 'inc/meta.php');
 require_once( TTSAUDIO_DIR . 'inc/class.Widgets.php');
 require_once( TTSAUDIO_DIR . 'inc/metaboxes.php');
 

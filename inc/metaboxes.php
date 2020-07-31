@@ -3,7 +3,7 @@
 //Add default meta box
 add_action('add_meta_boxes', 'add_custom_meta_box_post');
 function add_custom_meta_box_post($post) {
-  add_meta_box('sections_meta_box', 'TTS Audio Options', 'show_custom_meta_box');
+  add_meta_box('sections_meta_box', 'TTS Audio Options', 'show_custom_meta_box', ['post', 'page']);
 }
 
 add_action( 'save_post', 'ttsaudio_save' );
