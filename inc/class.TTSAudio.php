@@ -138,12 +138,15 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
     public function ttsMP3Output( $post_id ){
 
-      $settings = get_post_meta( $post_id, $this->prefix.'settings', true );
-      if (empty($settings['mp3']) || FALSE === get_post_status( $post_id ) )  return;
+      $mp3_file = get_post_meta( $post_id, 'ttsaudio_option_mp3', true ) ? : '';
 
-      $filepath = $this->ttsaudio_upload_dir .'/' . $settings['mp3'];
+      //$settings = get_post_meta( $post_id, $this->prefix.'settings', true );
+      if (empty( $mp3_file ) || FALSE === get_post_status( $post_id ) )  return;
+
+      $filepath = $this->ttsaudio_upload_dir .'/' . $mp3_file;
       if(!file_exists($filepath)) $filepath = TTSAUDIO_DIR . 'assets/the_audio_file_does_not_exist.mp3';
-      $this->smartReadFile($filepath, $settings['mp3']);
+
+      $this->smartReadFile($filepath, $mp3_file);
 
       return;
 
@@ -198,12 +201,20 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
     public function ttsAudioContent( $content ) {
 
-      $status  = get_post_meta( get_the_ID(), self::$prefix.'status', true );
-      if(is_singular() && $status == 'enable') {
+      $status  = get_post_meta( get_the_ID(), 'ttsaudio_status', true ) ? : '';
+
+      if( !is_singular() || $status !== 'enable' ) return $content;
+
+      if( is_singular() && $status == 'enable' ) {
+
         $options = get_option( TTSAUDIO_OPTION );
         $settings  = get_post_meta( get_the_ID(), $this->prefix.'settings', true );
+
         if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
         else $mp3_url = add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
+
+        //$mp3_url = get_post_meta( get_the_ID(), 'ttsaudio_option_custom_audio', true ) ? : add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
+
 
         $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTS Audio by GearThemes', 'https://gearthemes.com');
         $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';

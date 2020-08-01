@@ -2,6 +2,29 @@
 
   "use strict";
 
+  $('#ttsaudio_form .tbody-more').hide();
+
+  $(document).on('change', '#ttsaudio_status', function (e) {
+    $(this).after('<span class="spinner"></span>');
+    var spinner = $(this).siblings('.spinner');
+    spinner.css('visibility', 'visible');
+
+    var status = $(this).val();
+    // var other_tr = $(this).closest('tr').siblings('tr');
+    //
+    // if(status  == 'enable') other_tr.show();
+    // else other_tr.hide();
+    var data = {
+        action: 'ajax_add_fields_meta_boxes',
+        security: $('#ttsaudio_status_security').val(),
+    };
+    $.post(ajaxurl, data, function(response) {
+      if(status  == 'enable') $('table#ttsaudio_form').append(response);
+      else $('table#ttsaudio_form .tbody-more').hide();
+      spinner.remove();
+    });
+  });
+
   //Calculate characters length for textarea
   $(document).on('change keyup paste', '#ttsaudio_option_text_to_speech', function (e) {
     var currentVal = $(this).val().length + ' characters';
@@ -11,19 +34,18 @@
   //Create MP3 file
   $(document).on('click', '#ttsaudio_create_mp3', function(){
 
+    if($('#ttsaudio_option_text_to_speech').val() == '') {
+      $('#ttsaudio_option_text_to_speech').focus();
+      alert('Please enter text!');
+      return false;
+    }
+
     $(this).after('<span class="spinner"></span>');
     var spinner = $(this).siblings('.spinner');
     var ajax_result = $(this).siblings('.ajax_result');
 
     spinner.css('visibility', 'visible');
     ajax_result.empty();
-
-    //.css('visibility', 'hidden')
-    if($('#ttsaudio_option_text_to_speech').val() == '') {
-      alert('Please enter text!');
-      $('#ttsaudio_option_text_to_speech').focus();
-      return false;
-    }
 
     var data = {
         action: 'ehi_wp_custom_stuff',
