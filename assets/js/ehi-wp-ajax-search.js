@@ -1,28 +1,10 @@
-(function($){
+jQuery(function($){
 
-  "use strict";
+  $('#ttsaudio_status').on('change', function () {
+    var add_tbody = $(this).closest('tbody').next('tbody');
+    if( $(this).val() == 'enable') add_tbody.show();
+    else add_tbody.hide();
 
-  $('#ttsaudio_form .tbody-more').hide();
-
-  $(document).on('change', '#ttsaudio_status', function (e) {
-    $(this).after('<span class="spinner"></span>');
-    var spinner = $(this).siblings('.spinner');
-    spinner.css('visibility', 'visible');
-
-    var status = $(this).val();
-    // var other_tr = $(this).closest('tr').siblings('tr');
-    //
-    // if(status  == 'enable') other_tr.show();
-    // else other_tr.hide();
-    var data = {
-        action: 'ajax_add_fields_meta_boxes',
-        security: $('#ttsaudio_status_security').val(),
-    };
-    $.post(ajaxurl, data, function(response) {
-      if(status  == 'enable') $('table#ttsaudio_form').append(response);
-      else $('table#ttsaudio_form .tbody-more').hide();
-      spinner.remove();
-    });
   });
 
   //Calculate characters length for textarea
@@ -32,7 +14,7 @@
   });
 
   //Create MP3 file
-  $(document).on('click', '#ttsaudio_create_mp3', function(){
+  $('#ttsaudio_create_mp3').on('click', function(){
 
     if($('#ttsaudio_option_text_to_speech').val() == '') {
       $('#ttsaudio_option_text_to_speech').focus();
@@ -48,8 +30,9 @@
     ajax_result.empty();
 
     var data = {
-        action: 'ehi_wp_custom_stuff',
-        security: $('[name=ttsaudio_ajax_security]').val(),
+        action: 'ttsaudio_create_audio',
+        security: $(this).data('security'),
+        post_id: $('#post_ID').val(),
         voice: $('#ttsaudio_option_voice').val(),
         text: $('#ttsaudio_option_text_to_speech').val()
     };
@@ -62,22 +45,5 @@
 
   });
 
-  // $(document).on('click', '#ttsaudio_create_mp3', function(e){
-  //
-  //   $.ajax({
-  //       type: "POST",
-  //       data: {
-  //           action: 'ehi_wp_custom_stuff', // This is the action in your server-side code (PHP) that will be triggered
-  //           ehi_term_for_ajax_live_search: ehi_search_term
-  //       },
-  //       url: ehi_wp_live_search_ajax_object.ajax_url,
-  //       success: function(ehiresult)
-  //       {
-  //           var objresult = document.getElementById('ehi_ajaxlivesearchresults');
-  //           objresult.innerHTML = ehiresult;
-  //       }
-  //   });
-  //
-  // });
 
-}(jQuery));
+});

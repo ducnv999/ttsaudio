@@ -203,7 +203,7 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
       $status  = get_post_meta( get_the_ID(), 'ttsaudio_status', true ) ? : '';
 
-      if( !is_singular() || $status !== 'enable' ) return $content;
+      if( $status !== 'enable' ) return $content;
 
       if( is_singular() && $status == 'enable' ) {
 
@@ -218,10 +218,9 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
         $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTS Audio by GearThemes', 'https://gearthemes.com');
         $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';
-        $custom_content .= sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
+        $content = $content . sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
 
-        $custom_content .= $content;
-        return $custom_content;
+        return $content;
       }
       else return $content;
     }
@@ -237,11 +236,11 @@ if ( !class_exists( 'TTSAudio' ) ) {
     }
 
     public function single_script(){
-      if(!is_singular()) return;
 
-      $js = 'plyr.setup(\'#plyr_'.get_the_ID().'\');';
+      if( !is_singular() ) return;
 
-      wp_add_inline_script( 'ttsaudio-plyr', $js );
+      wp_add_inline_script( 'ttsaudio-plyr', 'plyr.setup(\'#plyr_'.get_the_ID().'\');' );
+
     }
 
     public static function author(){
