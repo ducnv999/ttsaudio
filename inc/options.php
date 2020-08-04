@@ -4,7 +4,7 @@
  * at http://jeremyhixon.com/wp-tools/option-page/
  */
 
-class TTSAudio_Options {
+class TTSAudio_Plugin_Options {
 	private $ttsaudio_options;
 	private $tts;
 
@@ -140,7 +140,7 @@ class TTSAudio_Options {
 
 }
 if ( is_admin() )
-	$ttsaudio = new TTSAudio_Options();
+	$ttsaudio = new TTSAudio_Plugin_Options();
 
 /*
  * Retrieve this value with:

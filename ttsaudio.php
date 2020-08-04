@@ -32,11 +32,6 @@ function ttsaudio_front_enqueue(){
 	wp_enqueue_style( 'ttsaudio-plyr',  TTSAUDIO_URI . 'assets/css/plyr.css' );
   wp_enqueue_style( 'ttsaudio-style',  TTSAUDIO_URI . 'assets/css/style.css' );
 
-  wp_localize_script( 'jquery', 'ajax_object',
-    array(
-    'ajaxurl' => admin_url( 'admin-ajax.php' ),
-    'ajax_nonce' => wp_create_nonce( 'ttsaudio_nonce' ))
-  );
   wp_enqueue_script( 'jquery');
 	wp_enqueue_script( 'ttsaudio-plyr', TTSAUDIO_URI . 'assets/js/plyr.js', [], false, true);
 	wp_enqueue_script( 'ttsaudio-playlist', TTSAUDIO_URI . 'assets/js/plyr-playlist.js', ['ttsaudio-plyr'], false, true);
