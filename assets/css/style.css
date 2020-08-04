@@ -80,7 +80,7 @@
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li {
   border-color: rgba(255, 255, 255, 0.3) !important;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.6);
 }
 .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li:hover, .ttsaudio-plyr:not(.ttsaudio-plyr--default) .ttsaudio-plyr--playlist__list li.active {
   color: #fff;
@@ -90,7 +90,8 @@
 }
 .ttsaudio-plyr--default {
   background: #fff;
-  border: 1px solid #dbe3e8;
+  -webkit-box-shadow: inset 0 0 0 1px #dbe3e8;
+          box-shadow: inset 0 0 0 1px #dbe3e8;
 }
 .ttsaudio-plyr--canva {
   background-image: -webkit-gradient(linear, left top, right top, from(#00C4CC), color-stop(30%, #2599B9), to(#684C96));

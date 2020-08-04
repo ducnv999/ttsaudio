@@ -10,20 +10,14 @@ Text Domain: ttsaudio
 Domain Path: /languages
 */
 
-//grts_ttsaudio_
-//GRTS_TTSAUDIO_
-
-define('TTSAUDIO_PREFIX', '_ttsaudio_' );
-define('TTSAUDIO_OPTION', '_ttsaudio_options' );
 define('TTSAUDIO_URI', plugin_dir_url( __FILE__ ));
 define('TTSAUDIO_DIR', plugin_dir_path( __FILE__ ));
 
 require_once( TTSAUDIO_DIR . 'inc/class.TTSAudio.php');
-require_once( TTSAUDIO_DIR . 'inc/options-old.php');
 require_once( TTSAUDIO_DIR . 'inc/options.php');
 require_once( TTSAUDIO_DIR . 'inc/metabox.php');
 require_once( TTSAUDIO_DIR . 'inc/class.Widgets.php');
-//require_once( TTSAUDIO_DIR . 'inc/metaboxes-old.php');
+
 
 $tts = new TTSAudio;
 
@@ -34,7 +28,7 @@ function ttsaudio_load_textdomain() {
 
 add_action( 'wp_enqueue_scripts', 'ttsaudio_front_enqueue' );
 function ttsaudio_front_enqueue(){
-	$options = get_option( TTSAUDIO_OPTION );
+
 	wp_enqueue_style( 'ttsaudio-plyr',  TTSAUDIO_URI . 'assets/css/plyr.css' );
   wp_enqueue_style( 'ttsaudio-style',  TTSAUDIO_URI . 'assets/css/style.css' );
 
@@ -53,12 +47,6 @@ function ttsaudio_front_enqueue(){
 
   $inline = 'const ranges = RangeTouch.setup(\'input[type="range"]\');';
   wp_add_inline_script( 'ttsaudio-rangetouch', $inline );
-}
-
-add_action( 'admin_enqueue_scripts', 'ttsaudio_admin_enqueue' );
-function ttsaudio_admin_enqueue($hook) {
-  if( 'toplevel_page_ttsaudio_options' != $hook ) return;
-  wp_enqueue_style( 'ttsaudio-options',  TTSAUDIO_URI . 'assets/css/options.css' );
 }
 
 add_filter( 'the_content', array($tts, 'ttsAudioContent') );

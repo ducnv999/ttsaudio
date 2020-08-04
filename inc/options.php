@@ -15,12 +15,12 @@ class TTSAudio_Options {
 
 	public function ttsaudio_add_plugin_page() {
 		add_menu_page(
-			'TTSAudio', // page_title
-			'TTSAudio', // menu_title
+			'TTS Audio', // page_title
+			'TTS Audio', // menu_title
 			'manage_options', // capability
 			'ttsaudio', // menu_slug
 			array( $this, 'ttsaudio_create_admin_page' ), // function
-			'dashicons-admin-generic', // icon_url
+			'dashicons-controls-volumeon', // icon_url
 		);
 	}
 

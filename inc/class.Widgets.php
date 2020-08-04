@@ -69,7 +69,7 @@ class TTSAudio_Playlist extends WP_Widget {
 			'no_found_rows'       => true,
 			'post_status'         => 'publish',
 			'ignore_sticky_posts' => true,
-			'meta_query' => array(array('key' => '_ttsaudio_status','value' => 'enable','compare' => '='))
+			'meta_query' => array(array('key' => 'ttsaudio_status','value' => 'enable','compare' => '='))
 		);
 		$wp_query['cat'] =  $cat;
 		if ($tags != '') $wp_query['tag'] = trim($tags);
@@ -86,18 +86,18 @@ class TTSAudio_Playlist extends WP_Widget {
 		$wp_query['orderby'] = $orderby;
 		$wp_query['order'] = $order;
 
-		$r = new WP_Query( apply_filters( 'widget_posts_args', $wp_query, $instance ) );
+		$the_query = new WP_Query( apply_filters( 'widget_posts_args', $wp_query, $instance ) );
 
-		if ( ! $r->have_posts() ) return;
+		if ( ! $the_query->have_posts() ) return;
 		?>
-		<?php echo $args['before_widget']; ?>
 		<?php
+		echo $args['before_widget'];
+
 		if ( $title ) echo $args['before_title'] . $title . $args['after_title'];
 
-		$i=0;
-		$options = get_option( TTSAUDIO_OPTION );
-		$post_count = count($r->posts);
+		$post_count = $the_query->post_count;
 		?>
+
 		<div id="plyr-<?php echo $args['widget_id'];?>" class="ttsaudio-plyr ttsaudio-plyr--<?php echo $skin;?> ttsaudio-plyr--playlist">
 			<div class="plyr">
 				<audio controls></audio>
@@ -108,22 +108,19 @@ class TTSAudio_Playlist extends WP_Widget {
 			</div>
 
 			<ul class="ttsaudio-plyr--playlist__list">
-				<?php foreach ( $r->posts as $recent_post ) : ?>
+				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 					<?php
-					$post_title = get_the_title( $recent_post->ID );
-					$title      = ( ! empty( $post_title ) ) ? $post_title : __( '(no title)' );
-					$settings  = get_post_meta( $recent_post->ID, '_ttsaudio_settings', true );
-					if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
-					else $mp3_url = add_query_arg( array('ttsaudio' => $recent_post->ID) , home_url() );
-
+					$title = ( ! empty( get_the_title() ) ) ? get_the_title() : __( '(no title)' );
+					$mp3_url = get_post_meta( get_the_ID(), 'ttsaudio_option_custom_audio', true ) ? : add_query_arg( array('ttsaudio' => get_the_ID() ) , home_url() );
 					?>
-					<li data-id="<?php echo $i;?>" data-audio="<?php echo $mp3_url;?>">
-						<?php echo '<b>'.str_pad($i+1, 2, "0", STR_PAD_LEFT) .'</b>. '. $title ; ?>
+					<li data-id="<?php echo $the_query->current_post;?>" data-audio="<?php echo esc_url_raw( $mp3_url );?>">
+						<?php echo '<b>'.str_pad( $the_query->current_post + 1, 2, "0", STR_PAD_LEFT ) .'</b>. '. $title ; ?>
 						<?php if ( $show_date ) : ?>
-							<span class="postdate"><?php echo get_the_date( '', $recent_post->ID ); ?></span>
+							<span class="postdate"><?php echo get_the_date( '', get_the_ID() ); ?></span>
 						<?php endif; ?>
 					</li>
-				<?php $i++; endforeach; ?>
+				<?php endwhile; ?>
+				<?php wp_reset_postdata(); ?>
 			</ul>
 			<?php echo TTSAudio::author();?>
 		</div>
@@ -172,7 +169,7 @@ class TTSAudio_Playlist extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		$tts = new TTSAudio;
-		$options = get_option( TTSAUDIO_OPTION );
+		$options = get_option( 'ttsaudio_options' );
 
 		$title     = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$skin    = isset( $instance['skin'] ) ? $instance['skin'] : $options['plyr_skin'];

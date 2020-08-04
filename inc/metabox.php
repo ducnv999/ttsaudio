@@ -104,9 +104,10 @@ class GRTS_TTSAudio_MetaBox {
 						<textarea class="large-text" rows="10" name="ttsaudio_option_text_to_speech" id="ttsaudio_option_text_to_speech" ><?php echo $this->mb_get_meta( 'ttsaudio_option_text_to_speech' ); ?></textarea>
 						<p><?php _e( 'Separate paragraph with double blank lines.', 'ttsaudio' );?></p>
 						<p class="alignleft">
-							<input type="text" name="ttsaudio_option_mp3" id="ttsaudio_option_mp3" value="<?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?>" />
+							<input type="hidden" name="ttsaudio_option_mp3" id="ttsaudio_option_mp3" value="<?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?>" />
 							<input id="ttsaudio_create_mp3" data-security="<?php echo wp_create_nonce( 'create-audio-special-string' ); ?>" type="button" class="button-primary" value="<?php _e( 'Create Audio', 'ttsaudio' );?>" />
 							<span class="ajax_result"></span>
+							<?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?>
 						</p><br class="clear">
 					</td>
 				</tr>

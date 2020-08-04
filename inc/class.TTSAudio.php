@@ -3,14 +3,11 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
   class TTSAudio{
 
-    public static $prefix = TTSAUDIO_PREFIX;
     public $options;
     public $voices;
     public $ttsaudio_upload_dir;
 
     function __construct(){
-      // $this->prefix = self::$prefix;
-      $this->options = get_option( TTSAUDIO_OPTION );
 
       $default_voices = ['en-US_AllisonVoice' => 'American English (en-US): Allison (female, expressive, transformable)',
       'en-US_AllisonV3Voice' => 'American English (en-US): AllisonV3 (female, enhanced dnn)',
@@ -140,7 +137,6 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
       $mp3_file = get_post_meta( $post_id, 'ttsaudio_option_mp3', true ) ? : '';
 
-      //$settings = get_post_meta( $post_id, $this->prefix.'settings', true );
       if (empty( $mp3_file ) || FALSE === get_post_status( $post_id ) )  return;
 
       $filepath = $this->ttsaudio_upload_dir .'/' . $mp3_file;
@@ -207,18 +203,12 @@ if ( !class_exists( 'TTSAudio' ) ) {
 
       if( is_singular() && $status == 'enable' ) {
 
-        $options = get_option( TTSAUDIO_OPTION );
-        $settings  = get_post_meta( get_the_ID(), $this->prefix.'settings', true );
-
-        if($settings['custom_audio']) $mp3_url = $settings['custom_audio'];
-        else $mp3_url = add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
-
-        //$mp3_url = get_post_meta( get_the_ID(), 'ttsaudio_option_custom_audio', true ) ? : add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
-
+        $options = get_option( 'ttsaudio_options' );
+        $mp3_url = get_post_meta( get_the_ID(), 'ttsaudio_option_custom_audio', true ) ? : add_query_arg( array('ttsaudio' => get_the_ID()) , home_url() );
 
         $cpr = sprintf('<a class="ttsaudio-plyr--single__info" title="%s" href="%s" target="_blank"></a>', 'TTS Audio by GearThemes', 'https://gearthemes.com');
         $string_html = '<div class="ttsaudio-plyr ttsaudio-plyr--%s ttsaudio-plyr--single"><audio id="plyr_%d" controls><source src="%s" type="audio/mp3" /></audio>%s</div>';
-        $content = $content . sprintf($string_html, $options['plyr_skin'], get_the_ID(), $mp3_url, apply_filters('gt_player_copyrights', $cpr));
+        $content = $content . sprintf($string_html, esc_attr($options['plyr_skin']), get_the_ID(), esc_url_raw($mp3_url), apply_filters('gt_player_copyrights', $cpr));
 
         return $content;
       }
