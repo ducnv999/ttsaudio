@@ -74,7 +74,7 @@ class TTSAudio_Playlist extends WP_Widget {
 		$wp_query['cat'] =  $cat;
 		if ($tags != '') $wp_query['tag'] = trim($tags);
 
-		if (isset($post_format[0])) {
+		if ( !empty( $post_format ) ) {
 			$tax_query = array();
 			foreach ($post_format as &$format) $formats[] = 'post-format-'.$format;
 			$tax_query = array(array('taxonomy' => 'post_format', 'field'=> 'slug', 'terms'=> $formats, 'operator' => 'IN'));
@@ -213,12 +213,24 @@ class TTSAudio_Playlist extends WP_Widget {
 			<input name="<?php echo $this->get_field_name('tags'); ?>" id="<?php echo $this->get_field_id('tags'); ?>" value="<?php echo $tags; ?>" class="widefat" type="text" /><br />
 			<em><?php _e('Separate tags with commas','ttsaudio');?></em></p>
 
-		<p><label for="<?php echo $this->get_field_id('post_format'); ?>"><?php _e('Post formats', 'ttsaudio'); ?>:</label>
-			<?php $formats = get_theme_support( 'post-formats' ); $formats =  $formats[0]; ?>
-			<?php foreach($formats as $format){?>
-			 <label for="<?php echo $this->get_field_id('post_format_'.$format); ?>">
-				<input class="checkbox" type="checkbox" name="<?php echo $this->get_field_name('post_format[]'); ?>" id="<?php echo $this->get_field_id('post_format_'.$format); ?>" value="<?php echo $format;?>" <?php checked( in_array($format, $post_format) ); ?> /> <?php echo ucwords($format);?></label>
-			<?php }?></p>
+			<?php
+			if ( current_theme_supports( 'post-formats' ) ) {
+		    $post_formats = get_theme_support( 'post-formats' );
+
+		    if ( is_array( $post_formats[0] ) ) { $post_formats = $post_formats[0];
+				?>
+				<p><label for="<?php echo $this->get_field_id('post_format'); ?>"><?php _e('Post formats', 'ttsaudio'); ?>:</label>
+					<?php $formats = get_theme_support( 'post-formats' ); $formats =  $formats[0];
+					?>
+					<?php foreach($post_formats as $format){?>
+					 <label for="<?php echo $this->get_field_id('post_format_'.$format); ?>">
+						<input class="checkbox" type="checkbox" name="<?php echo $this->get_field_name('post_format[]'); ?>" id="<?php echo $this->get_field_id('post_format_'.$format); ?>" value="<?php echo $format;?>" <?php checked( in_array($format, $post_format) ); ?> /> <?php echo ucwords($format);?></label>
+					<?php }?></p>
+				<?php
+				}
+			}
+			?>
+
 
     <p><label for="<?php echo $this->get_field_id('include'); ?>"><?php _e('Include posts','ttsaudio');?>:</label>
       <input name="<?php echo $this->get_field_name('include'); ?>" id="<?php echo $this->get_field_id('include'); ?>" value="<?php echo $include; ?>" type="text" class="widefat" /><br />
