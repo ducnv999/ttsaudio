@@ -107,9 +107,8 @@ class TTSAudio{
       'timeout'   => 500,
       'sslverify' => false
     );
-
-    $remote = wp_remote_get( esc_url_raw($url), $args );
-    $body = wp_remote_retrieve_body( $remote );
+    
+    $body = wp_remote_retrieve_body( wp_remote_get( esc_url_raw($url), $args ) );
 
     $filepath = $this->ttsaudio_upload_dir . '/' . $filename;
     $wp_filesystem = $this->filesystem();
@@ -128,7 +127,7 @@ class TTSAudio{
 
     return $url;
   }
-  
+
   public function ttsFPT( $text, $voice = 'female', $speed = 0){
 
     $headers = [
