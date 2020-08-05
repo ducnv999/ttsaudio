@@ -126,7 +126,7 @@ class TTSAudio_Plugin_Options {
 				<option value="<?php esc_attr_e( $key );?>" <?php selected( $this->ttsaudio_options['default_voice'], esc_attr( $key ) ); ?>><?php esc_html_e( $value );?></option>
 			<?php }?>
 
-		</select> <p class="description"><?php _e( 'You can change this option during add/edit post.', 'ttsaudio' ); ?></p>
+		</select> <p class="description"><?php _e( 'You can change this option in Add/Edit posts screen.', 'ttsaudio' ); ?></p>
 		<?php
 	}
 
@@ -135,17 +135,9 @@ class TTSAudio_Plugin_Options {
 			'<input class="regular-text" type="text" name="ttsaudio_options[fpt_api_key]" id="fpt_api_key" value="%s">',
 			isset( $this->ttsaudio_options['fpt_api_key'] ) ? esc_attr( $this->ttsaudio_options['fpt_api_key']) : ''
 		);
-		echo '<p class="description">'.__('If you don\'t use Vietnamese, leave it blank.').'<a href="https://console.fpt.ai/" target="_blank"><small>Get FPT API KEY</small></a> (max 5000 characters)</p>';
+		echo '<p class="description">'.__('If you don\'t use Vietnamese, leave it blank.').' <a href="https://console.fpt.ai/" target="_blank"><small>Get FPT API KEY</small></a> (max 5000 characters)</p>';
 	}
 
 }
 if ( is_admin() )
 	$ttsaudio = new TTSAudio_Plugin_Options();
-
-/*
- * Retrieve this value with:
- * $ttsaudio_options = get_option( 'ttsaudio_options' ); // Array of All Options
- * $plyr_skin = $ttsaudio_options['plyr_skin']; // Skin
- * $default_voice = $ttsaudio_options['default_voice']; // Default Voice
- * $fpt_api_key_2 = $ttsaudio_options['fpt_api_key']; // FPT API Key
- */
