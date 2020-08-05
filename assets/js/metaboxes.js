@@ -25,6 +25,7 @@ jQuery(function($){
     $(this).after('<span class="spinner"></span>');
     var spinner = $(this).siblings('.spinner');
     var ajax_result = $(this).siblings('.ajax_result');
+    var audio_file = $(this).siblings('.audio_file');
 
     spinner.css('visibility', 'visible');
     ajax_result.empty();
@@ -41,6 +42,7 @@ jQuery(function($){
         $('#ttsaudio_option_mp3').val(response);
         spinner.remove();
         ajax_result.html('<font color="green"><strong>Done!</strong></font>');
+        audio_file.text(response);
     });
 
   });

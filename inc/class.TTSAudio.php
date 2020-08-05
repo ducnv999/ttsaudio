@@ -62,6 +62,7 @@ class TTSAudio{
     $this->voices = $default_voices;
 
     $this->ttsaudio_upload_dir = wp_upload_dir()['basedir'].'/ttsaudio';
+
   }
 
   public function PlyrSkin(){
@@ -98,11 +99,18 @@ class TTSAudio{
 
     }else{
 
-      $url = str_replace(" ","%20", $this->ttsWatson($text, $voice));
+      $url = $this->ttsWatson($text, $voice);
       $filename = $voice . '-' . md5($text).'.mp3';
     }
 
-    $body = wp_remote_retrieve_body( wp_remote_get( esc_url_raw($url) ) );
+    $args = array(
+      'timeout'   => 500,
+      'sslverify' => false
+    );
+
+    $remote = wp_remote_get( esc_url_raw($url), $args );
+    $body = wp_remote_retrieve_body( $remote );
+
     $filepath = $this->ttsaudio_upload_dir . '/' . $filename;
     $wp_filesystem = $this->filesystem();
     $wp_filesystem->put_contents($filepath, $body);
@@ -112,6 +120,16 @@ class TTSAudio{
   }
 
   private function ttsWatson ($text, $voice = 'en-US_AllisonVoice'){
+    if( empty($text) ) return;
+
+    $text = urlencode($text);
+    $url = 'https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?accept=audio%2Fmp3&download=true';
+    $url.= '&text='.$text.'&voice='.$voice;
+
+    return $url;
+  }
+
+  private function ttsWatson_BK ($text, $voice = 'en-US_AllisonVoice'){
     if($text === '') return;
     $text = urlencode($text);
     $url = 'https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?accept=audio/mp3';
@@ -150,7 +168,7 @@ class TTSAudio{
   }
 
   private function smartReadFile($location, $filename, $mimeType = 'audio/mpeg') {
-    if (!file_exists($location)) return;
+    if (!is_file($location)) return;
 
     $size	= filesize($location);
     $time	= date('r', filemtime($location));

@@ -107,7 +107,7 @@ class TTSAudio_MetaBoxes {
 							<input type="hidden" name="ttsaudio_option_mp3" id="ttsaudio_option_mp3" value="<?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?>" />
 							<input id="ttsaudio_create_mp3" data-security="<?php echo wp_create_nonce( 'create-audio-special-string' ); ?>" type="button" class="button-primary" value="<?php _e( 'Create Audio', 'ttsaudio' );?>" />
 							<span class="ajax_result"></span>
-							<?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?>
+							<span class="audio_file"><?php echo $this->mb_get_meta( 'ttsaudio_option_mp3' ); ?></span>
 						</p><br class="clear">
 					</td>
 				</tr>
@@ -137,6 +137,7 @@ class TTSAudio_MetaBoxes {
 		//Return if status is disable
 		if ( isset( $_POST['ttsaudio_status'] ) && 'disable' == sanitize_text_field( $_POST['ttsaudio_status'] ) ) return;
 
+		//Delete TTS Audio
 		if( isset( $_POST['ttsaudio_status'] ) && 'delete' == sanitize_text_field( $_POST['ttsaudio_status'] ) ){
 
 			delete_post_meta( $post_id, 'ttsaudio_status');
@@ -153,6 +154,7 @@ class TTSAudio_MetaBoxes {
 			return;
 		}
 
+		//Updates
 		if( isset( $_POST['ttsaudio_status'] ) && !empty( sanitize_text_field( $_POST['ttsaudio_status'] ) ) )
 			update_post_meta( $post_id, 'ttsaudio_status', sanitize_text_field( $_POST['ttsaudio_status'] ) );
 
