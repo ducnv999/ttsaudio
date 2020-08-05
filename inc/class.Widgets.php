@@ -150,7 +150,9 @@ class TTSAudio_Playlist extends WP_Widget {
 		$instance['skin'] = sanitize_text_field( $new_instance['skin'] );
 		$instance['cat'] = (int) $new_instance['cat'];
 		$instance['tags'] = sanitize_text_field( $new_instance['tags'] );
-		$instance['post_format'] = array_map( 'sanitize_text_field', $new_instance['post_format'] );
+		if(!empty($new_instance['post_format']) && is_array($new_instance['post_format'])){
+			$instance['post_format'] = array_map( 'sanitize_text_field', $new_instance['post_format'] );
+		}
 		$instance['include'] = sanitize_text_field( $new_instance['include'] );
 		$instance['exclude'] = sanitize_text_field( $new_instance['exclude'] );
 		$instance['orderby'] = sanitize_text_field( $new_instance['orderby'] );
