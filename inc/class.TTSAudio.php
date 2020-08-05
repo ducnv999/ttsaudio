@@ -128,16 +128,7 @@ class TTSAudio{
 
     return $url;
   }
-
-  private function ttsWatson_BK ($text, $voice = 'en-US_AllisonVoice'){
-    if($text === '') return;
-    $text = urlencode($text);
-    $url = 'https://text-to-speech-demo.ng.bluemix.net/api/v3/synthesize?accept=audio/mp3';
-    $url.= '&text='.$text.'&voice='.$voice;
-
-    return $url;
-  }
-
+  
   public function ttsFPT( $text, $voice = 'female', $speed = 0){
 
     $headers = [
